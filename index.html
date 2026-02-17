@@ -516,7 +516,6 @@
             font-size: 14px;
         }
 
-        .settings-item input[type="file"],
         .settings-item input[type="text"],
         .settings-item textarea {
             width: 100%;
@@ -528,7 +527,6 @@
             transition: border-color 0.3s;
         }
 
-        .settings-item input[type="file"]:focus,
         .settings-item input[type="text"]:focus,
         .settings-item textarea:focus {
             border-color: #F28C4C;
@@ -610,7 +608,7 @@
     <!-- SETTINGS MODAL -->
     <div id="settings-modal">
         <div class="settings-content">
-            <h2>Portfolio</h2>
+            <h2>Portfolio Settings</h2>
 
             <div class="settings-tabs">
                 <button class="settings-tab active" onclick="switchTab('login')">Admin Login</button>
@@ -639,28 +637,31 @@
             <!-- EDIT TAB -->
             <div id="edit-tab-content" class="settings-tab-content">
                 <div class="settings-item">
-                    <label for="settings-photo">Profile Photo:</label>
-                    <input type="file" id="settings-photo" accept="image/*">
-                    <div class="settings-hint">JPG, PNG, or GIF (recommended: 250x250px)</div>
-                </div>
-                
-                <div class="settings-item">
-                    <label for="settings-audio">Audio File:</label>
-                    <input type="file" id="settings-audio" accept="audio/*">
-                    <div class="settings-hint">MP3 or WAV format</div>
-                </div>
-
-                <div class="settings-item">
                     <label for="settings-video">YouTube Video Link:</label>
-                    <input type="text" id="settings-video" placeholder="https://youtu.be/JKwiYQ-5cCU or https://www.youtube.com/watch?v=JKwiYQ-5cCU">
+                    <input type="text" id="settings-video" placeholder="https://youtu.be/JKwiYQ-5cCU">
                     <div class="settings-hint">Paste your YouTube link - both short and long links work</div>
                 </div>
                 
                 <div class="settings-item">
                     <label for="settings-bio">Your Bio:</label>
-                    <textarea id="settings-bio" placeholder="Enter your professional bio...">I'm a Digital Media professional with a background in broadcast, live production, post-production, and social media, supported by formal training in Broadcast and Cinematic Arts and hands-on experience across audio, video, and live event environments. I've worked on everything from studio-based educational content to large-scale live events, and I enjoy being involved throughout the full production process, from setup and capture to post-production and delivery. I bring a detail-oriented approach to my work, with a strong focus on technical accuracy, organized workflows, and creating media that's both polished and purposeful.
+                    <textarea id="settings-bio" placeholder="Enter your professional bio...">I'm a Digital Media professional with a background in broadcast, live production, post-production, and social media, supported by formal training in Broadcast and Cinematic Arts and hands-on experience across audio, video, and live event environments.</textarea>
+                </div>
 
-Beyond technical skills, I'm known as a calm, reliable collaborator who helps keep productions running smoothly under pressure. I lead through clear communication, adaptability, and a strong sense of responsibility to both the team and the project. Whether working with editors, engineers, stage crews, or on-air talent, I prioritize efficiency, safety, and collaboration, and I'm driven by a genuine passion for multimedia production and continuous growth in the field.</textarea>
+                <div class="settings-item">
+                    <label>Asset URLs:</label>
+                    <p style="font-size: 12px; color: #666; margin-bottom: 10px;">
+                        <strong>Instructions:</strong> Upload your files to GitHub and paste the raw download links here.
+                    </p>
+                    
+                    <label for="settings-photo-url" style="font-size: 12px; margin-top: 10px;">Photo URL:</label>
+                    <input type="text" id="settings-photo-url" placeholder="https://raw.githubusercontent.com/username/repo/main/assets/photo.jpg">
+                    <div class="settings-hint">Paste the raw GitHub link to your photo</div>
+                </div>
+
+                <div class="settings-item">
+                    <label for="settings-audio-url">Audio URL:</label>
+                    <input type="text" id="settings-audio-url" placeholder="https://raw.githubusercontent.com/username/repo/main/assets/audio.mp3">
+                    <div class="settings-hint">Paste the raw GitHub link to your audio file</div>
                 </div>
 
                 <div class="settings-buttons">
@@ -841,7 +842,7 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
             }
         }
 
-        // Check if already logged in
+        // Check if already logged in and load data
         window.addEventListener('load', function() {
             if (localStorage.getItem('portfolioLoggedIn') === 'true') {
                 isLoggedIn = true;
@@ -850,12 +851,12 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
             loadData();
         });
 
-        // Initialize portfolio data from localStorage
+        // Portfolio data object
         let portfolioData = {
-            photo: null,
-            audio: null,
+            photoUrl: '',
+            audioUrl: '',
             videoLink: 'JKwiYQ-5cCU',
-            bio: 'I\'m a Digital Media professional with a background in broadcast, live production, post-production, and social media, supported by formal training in Broadcast and Cinematic Arts and hands-on experience across audio, video, and live event environments. I\'ve worked on everything from studio-based educational content to large-scale live events, and I enjoy being involved throughout the full production process, from setup and capture to post-production and delivery. I bring a detail-oriented approach to my work, with a strong focus on technical accuracy, organized workflows, and creating media that\'s both polished and purposeful.\n\nBeyond technical skills, I\'m known as a calm, reliable collaborator who helps keep productions running smoothly under pressure. I lead through clear communication, adaptability, and a strong sense of responsibility to both the team and the project. Whether working with editors, engineers, stage crews, or on-air talent, I prioritize efficiency, safety, and collaboration, and I\'m driven by a genuine passion for multimedia production and continuous growth in the field.'
+            bio: 'I\'m a Digital Media professional with a background in broadcast, live production, post-production, and social media...'
         };
 
         // Extract video ID from YouTube URL
@@ -887,16 +888,16 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
 
         // Update portfolio display
         function updatePortfolio() {
-            if (portfolioData.photo) {
-                document.getElementById('photo-display').src = portfolioData.photo;
+            if (portfolioData.photoUrl) {
+                document.getElementById('photo-display').src = portfolioData.photoUrl;
                 document.getElementById('photo-display').style.display = 'block';
                 document.getElementById('photo-placeholder').style.display = 'none';
             }
             
-            if (portfolioData.audio) {
+            if (portfolioData.audioUrl) {
                 document.getElementById('audio-display').innerHTML = '';
                 const audioSource = document.createElement('source');
-                audioSource.src = portfolioData.audio;
+                audioSource.src = portfolioData.audioUrl;
                 audioSource.type = 'audio/mpeg';
                 document.getElementById('audio-display').appendChild(audioSource);
                 document.getElementById('audio-display').style.display = 'block';
@@ -923,6 +924,8 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
                 document.getElementById('edit-tab').style.display = 'block';
                 document.getElementById('settings-bio').value = portfolioData.bio;
                 document.getElementById('settings-video').value = portfolioData.videoLink;
+                document.getElementById('settings-photo-url').value = portfolioData.photoUrl;
+                document.getElementById('settings-audio-url').value = portfolioData.audioUrl;
             }
         }
 
@@ -931,46 +934,20 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
         }
 
         function saveSettings() {
-            const photoInput = document.getElementById('settings-photo');
-            const audioInput = document.getElementById('settings-audio');
             const videoInput = document.getElementById('settings-video');
             const bioInput = document.getElementById('settings-bio');
+            const photoUrlInput = document.getElementById('settings-photo-url');
+            const audioUrlInput = document.getElementById('settings-audio-url');
 
-            if (photoInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    portfolioData.photo = e.target.result;
-                    saveRest();
-                };
-                reader.readAsDataURL(photoInput.files[0]);
-            } else {
-                saveRest();
-            }
+            portfolioData.videoLink = videoInput.value;
+            portfolioData.bio = bioInput.value;
+            portfolioData.photoUrl = photoUrlInput.value;
+            portfolioData.audioUrl = audioUrlInput.value;
 
-            function saveRest() {
-                if (audioInput.files[0]) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        portfolioData.audio = e.target.result;
-                        saveVideoAndBio();
-                    };
-                    reader.readAsDataURL(audioInput.files[0]);
-                } else {
-                    saveVideoAndBio();
-                }
-            }
-
-            function saveVideoAndBio() {
-                if (videoInput.value) {
-                    portfolioData.videoLink = videoInput.value;
-                }
-                
-                portfolioData.bio = bioInput.value;
-                saveData();
-                updatePortfolio();
-                closeSettings();
-                alert('Settings saved!');
-            }
+            saveData();
+            updatePortfolio();
+            closeSettings();
+            alert('Settings saved!');
         }
 
         // Navigation functions
@@ -1022,7 +999,5 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
             }
         });
     </script>
-</body>
-</html>
 </body>
 </html>
