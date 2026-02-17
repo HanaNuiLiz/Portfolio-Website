@@ -18,7 +18,6 @@
             min-height: 100vh;
         }
 
-        /* HOME SCREEN */
         #home {
             display: flex;
             flex-direction: column;
@@ -72,7 +71,6 @@
             box-shadow: 0 6px 12px rgba(0,0,0,0.2);
         }
         
-        /* PORTFOLIO */
         #portfolio {
             display: none;
             flex-wrap: wrap;
@@ -150,7 +148,6 @@
             to { opacity: 1; }
         }
         
-        /* INTRO SECTION */
         .intro-container {
             display: flex;
             gap: 30px;
@@ -193,7 +190,6 @@
             margin-bottom: 15px;
         }
         
-        /* WORK HISTORY */
         .work-container {
             display: flex;
             gap: 30px;
@@ -232,7 +228,6 @@
             background-color: #B06A8C;
         }
         
-        /* MEDIA */
         audio {
             width: 100%;
             max-width: 600px;
@@ -241,7 +236,6 @@
             background-color: #000;
         }
         
-        /* YOUTUBE VIDEO */
         .youtube-container {
             position: relative;
             width: 100%;
@@ -263,7 +257,6 @@
             border-radius: 8px;
         }
         
-        /* CONTACT FORM */
         #contact-form {
             background-color: #B06A8C;
             padding: 30px;
@@ -309,7 +302,6 @@
             background-color: #333;
         }
         
-        /* BACK TO TOP */
         #scroll-top {
             display: none;
             position: fixed;
@@ -335,7 +327,6 @@
             display: block;
         }
 
-        /* SETTINGS BUTTON */
         #settings-btn {
             position: fixed;
             top: 20px;
@@ -355,7 +346,6 @@
             background-color: #555;
         }
 
-        /* SETTINGS MODAL */
         #settings-modal {
             display: none;
             position: fixed;
@@ -419,7 +409,6 @@
             display: block;
         }
 
-        /* LOGIN TAB */
         .login-item {
             margin-bottom: 20px;
         }
@@ -489,7 +478,6 @@
             background-color: #B06A8C;
         }
 
-        /* EDIT TAB */
         .settings-item {
             margin-bottom: 20px;
         }
@@ -579,20 +567,17 @@
 </head>
 <body>
 
-    <!-- SETTINGS BUTTON -->
     <button id="settings-btn" onclick="openSettings()">⚙️ Settings</button>
 
-    <!-- SETTINGS MODAL -->
     <div id="settings-modal">
         <div class="settings-content">
             <h2>Portfolio Settings</h2>
 
             <div class="settings-tabs">
                 <button class="settings-tab active" onclick="switchTab('login')">Admin Login</button>
-                <button class="settings-tab" id="edit-tab" onclick="switchTab('edit')" style="display:none;">Edit Portfolio</button>
+                <button class="settings-tab" id="edit-tab" onclick="switchTab('edit')" style="display:none;">Edit Bio</button>
             </div>
 
-            <!-- LOGIN TAB -->
             <div id="login-tab" class="settings-tab-content active">
                 <div class="login-error" id="login-error"></div>
                 <div class="login-success" id="login-success"></div>
@@ -611,35 +596,14 @@
                 <button class="settings-close" onclick="closeSettings()" style="width:100%; margin-top:10px;">Close</button>
             </div>
 
-            <!-- EDIT TAB -->
             <div id="edit-tab-content" class="settings-tab-content">
                 <div class="settings-item">
-                    <label for="settings-photo-url">Photo URL:</label>
-                    <input type="text" id="settings-photo-url" placeholder="https://ibb.co/5pm6G6m">
-                    <div class="settings-hint">Paste your photo link (ImgBB, direct image URL, etc.)</div>
-                </div>
-
-                <div class="settings-item">
-                    <label for="settings-audio-url">Audio URL:</label>
-                    <input type="text" id="settings-audio-url" placeholder="https://voca.ro/12StjOjnPdbI">
-                    <div class="settings-hint">Paste your audio link (Vocaroo, direct audio URL, etc.)</div>
-                </div>
-
-                <div class="settings-item">
-                    <label for="settings-video">YouTube Video Link:</label>
-                    <input type="text" id="settings-video" placeholder="https://youtu.be/JKwiYQ-5cCU">
-                    <div class="settings-hint">Paste your YouTube link - both short and long links work</div>
-                </div>
-                
-                <div class="settings-item">
                     <label for="settings-bio">Your Bio:</label>
-                    <textarea id="settings-bio">I'm a Digital Media professional with a background in broadcast, live production, post-production, and social media, supported by formal training in Broadcast and Cinematic Arts and hands-on experience across audio, video, and live event environments. I've worked on everything from studio-based educational content to large-scale live events, and I enjoy being involved throughout the full production process, from setup and capture to post-production and delivery. I bring a detail-oriented approach to my work, with a strong focus on technical accuracy, organized workflows, and creating media that's both polished and purposeful.
-
-Beyond technical skills, I'm known as a calm, reliable collaborator who helps keep productions running smoothly under pressure. I lead through clear communication, adaptability, and a strong sense of responsibility to both the team and the project. Whether working with editors, engineers, stage crews, or on-air talent, I prioritize efficiency, safety, and collaboration, and I'm driven by a genuine passion for multimedia production and continuous growth in the field.</textarea>
+                    <textarea id="settings-bio"></textarea>
                 </div>
 
                 <div class="settings-buttons">
-                    <button class="settings-save" onclick="saveSettings()">Save</button>
+                    <button class="settings-save" onclick="saveSettings()">Save Bio</button>
                     <button class="settings-close" onclick="closeSettings()">Close</button>
                 </div>
                 <button class="logout-btn" onclick="logout()" style="margin-top: 10px;">Logout</button>
@@ -647,7 +611,6 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
         </div>
     </div>
     
-    <!-- HOME SCREEN -->
     <div id="home">
         <h1>Liz Youmans</h1>
         <p>Digital Media Professional</p>
@@ -660,9 +623,7 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
         </div>
     </div>
     
-    <!-- PORTFOLIO -->
     <div id="portfolio">
-        <!-- SIDEBAR -->
         <div id="sidebar">
             <button id="back-btn" onclick="goHome()">← Home</button>
             <button class="nav-btn active" onclick="switchPage('intro')">1. Intro</button>
@@ -672,10 +633,8 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
             <button class="nav-btn" onclick="switchPage('contact')">5. Contact</button>
         </div>
         
-        <!-- MAIN CONTENT -->
         <div id="main-content">
             
-            <!-- INTRO -->
             <section id="intro" class="section active">
                 <div class="intro-container">
                     <div class="intro-text">
@@ -683,12 +642,11 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
                         <p id="bio-display"></p>
                     </div>
                     <div class="intro-photo">
-                        <img id="photo-display" src="https://ibb.co/5pm6G6m" alt="Liz Youmans">
+                        <img src="https://ibb.co/5pm6G6m" alt="Liz Youmans">
                     </div>
                 </div>
             </section>
             
-            <!-- WORK HISTORY -->
             <section id="work" class="section">
                 <h1>Work History</h1>
                 <div class="work-container">
@@ -712,26 +670,23 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
                 </div>
             </section>
             
-            <!-- ON AIR -->
             <section id="onair" class="section">
                 <h1>On Air</h1>
                 <p>Listen to my on-air work:</p>
-                <audio id="audio-display" controls>
+                <audio controls>
                     <source src="https://voca.ro/12StjOjnPdbI" type="audio/mpeg">
                     Your browser does not support the audio element.
                 </audio>
             </section>
             
-            <!-- ON SCREEN -->
             <section id="onscreen" class="section">
                 <h1>On Screen</h1>
                 <p>Watch my video demo:</p>
                 <div class="youtube-container">
-                    <iframe id="youtube-iframe" title="Video Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" loading="lazy"></iframe>
+                    <iframe src="https://www.youtube.com/embed/JKwiYQ-5cCU" title="Video Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </section>
             
-            <!-- CONTACT -->
             <section id="contact" class="section">
                 <h1>Contact Me</h1>
                 <p>Email: <a href="mailto:Hananuiliz@gmail.com" style="color: #F28C4C; font-weight: bold;">Hananuiliz@gmail.com</a></p>
@@ -749,15 +704,14 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
         </div>
     </div>
     
-    <!-- SCROLL TO TOP -->
     <button id="scroll-top" onclick="scrollToTop()">↑</button>
     
     <script>
-        // AUTHENTICATION
         const ADMIN_EMAIL = 'hananuiliz@gmail.com';
         const ADMIN_PASSWORD = '@Brenda87';
-
         let isLoggedIn = false;
+
+        const DEFAULT_BIO = "I'm a Digital Media professional with a background in broadcast, live production, post-production, and social media, supported by formal training in Broadcast and Cinematic Arts and hands-on experience across audio, video, and live event environments. I've worked on everything from studio-based educational content to large-scale live events, and I enjoy being involved throughout the full production process, from setup and capture to post-production and delivery. I bring a detail-oriented approach to my work, with a strong focus on technical accuracy, organized workflows, and creating media that's both polished and purposeful.\n\nBeyond technical skills, I'm known as a calm, reliable collaborator who helps keep productions running smoothly under pressure. I lead through clear communication, adaptability, and a strong sense of responsibility to both the team and the project. Whether working with editors, engineers, stage crews, or on-air talent, I prioritize efficiency, safety, and collaboration, and I'm driven by a genuine passion for multimedia production and continuous growth in the field.";
 
         function handleLogin() {
             const email = document.getElementById('login-email').value;
@@ -809,92 +763,25 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
             } else if (tab === 'edit') {
                 document.getElementById('edit-tab-content').classList.add('active');
                 document.querySelectorAll('.settings-tab')[1].classList.add('active');
+                document.getElementById('settings-bio').value = localStorage.getItem('portfolioBio') || DEFAULT_BIO;
             }
         }
 
-        // Check if already logged in and load data
         window.addEventListener('load', function() {
             if (localStorage.getItem('portfolioLoggedIn') === 'true') {
                 isLoggedIn = true;
                 document.getElementById('edit-tab').style.display = 'block';
             }
-            loadData();
+            loadBio();
         });
 
-        // Portfolio data object with embedded links
-        let portfolioData = {
-            photoUrl: 'https://ibb.co/5pm6G6m',
-            audioUrl: 'https://voca.ro/12StjOjnPdbI',
-            videoLink: 'https://youtu.be/JKwiYQ-5cCU?si=O10ZT0CXhtoGd5x1',
-            bio: 'I\'m a Digital Media professional with a background in broadcast, live production, post-production, and social media, supported by formal training in Broadcast and Cinematic Arts and hands-on experience across audio, video, and live event environments. I\'ve worked on everything from studio-based educational content to large-scale live events, and I enjoy being involved throughout the full production process, from setup and capture to post-production and delivery. I bring a detail-oriented approach to my work, with a strong focus on technical accuracy, organized workflows, and creating media that\'s both polished and purposeful.\n\nBeyond technical skills, I\'m known as a calm, reliable collaborator who helps keep productions running smoothly under pressure. I lead through clear communication, adaptability, and a strong sense of responsibility to both the team and the project. Whether working with editors, engineers, stage crews, or on-air talent, I prioritize efficiency, safety, and collaboration, and I\'m driven by a genuine passion for multimedia production and continuous growth in the field.'
-        };
-
-        // Extract video ID from YouTube URL
-        function extractVideoId(url) {
-            let videoId = '';
-            if (url.includes('youtu.be/')) {
-                videoId = url.split('youtu.be/')[1].split('?')[0];
-            } else if (url.includes('youtube.com/watch?v=')) {
-                videoId = url.split('youtube.com/watch?v=')[1].split('&')[0];
-            } else {
-                videoId = url;
-            }
-            return videoId;
+        function loadBio() {
+            const bio = localStorage.getItem('portfolioBio') || DEFAULT_BIO;
+            document.getElementById('bio-display').textContent = bio;
         }
 
-        // Load from localStorage
-        function loadData() {
-            const saved = localStorage.getItem('portfolioData');
-            if (saved) {
-                portfolioData = JSON.parse(saved);
-            }
-            updatePortfolio();
-        }
-
-        // Save to localStorage
-        function saveData() {
-            localStorage.setItem('portfolioData', JSON.stringify(portfolioData));
-        }
-
-        // Update portfolio display
-        function updatePortfolio() {
-            // Update photo
-            if (portfolioData.photoUrl) {
-                document.getElementById('photo-display').src = portfolioData.photoUrl;
-            }
-            
-            // Update audio
-            if (portfolioData.audioUrl) {
-                const audioSource = document.querySelector('#audio-display source');
-                if (audioSource) {
-                    audioSource.src = portfolioData.audioUrl;
-                }
-                document.getElementById('audio-display').load();
-            }
-            
-            // Update video
-            if (portfolioData.videoLink) {
-                const videoId = extractVideoId(portfolioData.videoLink);
-                const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-                document.getElementById('youtube-iframe').src = embedUrl;
-            }
-            
-            // Update bio
-            if (portfolioData.bio) {
-                document.getElementById('bio-display').textContent = portfolioData.bio;
-            }
-        }
-
-        // Settings functions
         function openSettings() {
             document.getElementById('settings-modal').classList.add('show');
-            if (isLoggedIn) {
-                document.getElementById('edit-tab').style.display = 'block';
-                document.getElementById('settings-bio').value = portfolioData.bio;
-                document.getElementById('settings-video').value = portfolioData.videoLink;
-                document.getElementById('settings-photo-url').value = portfolioData.photoUrl;
-                document.getElementById('settings-audio-url').value = portfolioData.audioUrl;
-            }
         }
 
         function closeSettings() {
@@ -902,23 +789,13 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
         }
 
         function saveSettings() {
-            const videoInput = document.getElementById('settings-video');
             const bioInput = document.getElementById('settings-bio');
-            const photoUrlInput = document.getElementById('settings-photo-url');
-            const audioUrlInput = document.getElementById('settings-audio-url');
-
-            portfolioData.videoLink = videoInput.value;
-            portfolioData.bio = bioInput.value;
-            portfolioData.photoUrl = photoUrlInput.value;
-            portfolioData.audioUrl = audioUrlInput.value;
-
-            saveData();
-            updatePortfolio();
+            localStorage.setItem('portfolioBio', bioInput.value);
+            loadBio();
             closeSettings();
-            alert('Settings saved!');
+            alert('Bio saved!');
         }
 
-        // Navigation functions
         function openPage(pageId) {
             document.getElementById('home').classList.add('hidden');
             document.getElementById('portfolio').classList.add('active');
@@ -953,14 +830,12 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
             }
         });
 
-        // Close modal when clicking outside
         document.getElementById('settings-modal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeSettings();
             }
         });
 
-        // Allow Enter key to login
         document.addEventListener('keypress', function(e) {
             if (e.key === 'Enter' && !isLoggedIn) {
                 handleLogin();
