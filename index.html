@@ -644,24 +644,26 @@
                 
                 <div class="settings-item">
                     <label for="settings-bio">Your Bio:</label>
-                    <textarea id="settings-bio" placeholder="Enter your professional bio...">I'm a Digital Media professional with a background in broadcast, live production, post-production, and social media, supported by formal training in Broadcast and Cinematic Arts and hands-on experience across audio, video, and live event environments.</textarea>
+                    <textarea id="settings-bio" placeholder="Enter your professional bio...">I'm a Digital Media professional with a background in broadcast, live production, post-production, and social media, supported by formal training in Broadcast and Cinematic Arts and hands-on experience across audio, video, and live event environments. I've worked on everything from studio-based educational content to large-scale live events, and I enjoy being involved throughout the full production process, from setup and capture to post-production and delivery. I bring a detail-oriented approach to my work, with a strong focus on technical accuracy, organized workflows, and creating media that's both polished and purposeful.
+
+Beyond technical skills, I'm known as a calm, reliable collaborator who helps keep productions running smoothly under pressure. I lead through clear communication, adaptability, and a strong sense of responsibility to both the team and the project. Whether working with editors, engineers, stage crews, or on-air talent, I prioritize efficiency, safety, and collaboration, and I'm driven by a genuine passion for multimedia production and continuous growth in the field.</textarea>
                 </div>
 
                 <div class="settings-item">
                     <label>Asset URLs:</label>
                     <p style="font-size: 12px; color: #666; margin-bottom: 10px;">
-                        <strong>Instructions:</strong> Upload your files to GitHub and paste the raw download links here.
+                        <strong>Instructions:</strong> Use ImgBB for photos and Vocaroo for audio files.
                     </p>
                     
                     <label for="settings-photo-url" style="font-size: 12px; margin-top: 10px;">Photo URL:</label>
-                    <input type="text" id="settings-photo-url" placeholder="https://raw.githubusercontent.com/username/repo/main/assets/photo.jpg">
-                    <div class="settings-hint">Paste the raw GitHub link to your photo</div>
+                    <input type="text" id="settings-photo-url" placeholder="https://ibb.co/5pm6G6m">
+                    <div class="settings-hint">Paste your photo link from ImgBB</div>
                 </div>
 
                 <div class="settings-item">
                     <label for="settings-audio-url">Audio URL:</label>
-                    <input type="text" id="settings-audio-url" placeholder="https://raw.githubusercontent.com/username/repo/main/assets/audio.mp3">
-                    <div class="settings-hint">Paste the raw GitHub link to your audio file</div>
+                    <input type="text" id="settings-audio-url" placeholder="https://voca.ro/12StjOjnPdbI">
+                    <div class="settings-hint">Paste your audio link from Vocaroo</div>
                 </div>
 
                 <div class="settings-buttons">
@@ -851,12 +853,12 @@
             loadData();
         });
 
-        // Portfolio data object
+        // Portfolio data object with your links
         let portfolioData = {
-            photoUrl: '',
-            audioUrl: '',
-            videoLink: 'JKwiYQ-5cCU',
-            bio: 'I\'m a Digital Media professional with a background in broadcast, live production, post-production, and social media...'
+            photoUrl: 'https://ibb.co/5pm6G6m',
+            audioUrl: 'https://voca.ro/12StjOjnPdbI',
+            videoLink: 'https://youtu.be/JKwiYQ-5cCU?si=O10ZT0CXhtoGd5x1',
+            bio: 'I\'m a Digital Media professional with a background in broadcast, live production, post-production, and social media, supported by formal training in Broadcast and Cinematic Arts and hands-on experience across audio, video, and live event environments. I\'ve worked on everything from studio-based educational content to large-scale live events, and I enjoy being involved throughout the full production process, from setup and capture to post-production and delivery. I bring a detail-oriented approach to my work, with a strong focus on technical accuracy, organized workflows, and creating media that\'s both polished and purposeful.\n\nBeyond technical skills, I\'m known as a calm, reliable collaborator who helps keep productions running smoothly under pressure. I lead through clear communication, adaptability, and a strong sense of responsibility to both the team and the project. Whether working with editors, engineers, stage crews, or on-air talent, I prioritize efficiency, safety, and collaboration, and I\'m driven by a genuine passion for multimedia production and continuous growth in the field.'
         };
 
         // Extract video ID from YouTube URL
