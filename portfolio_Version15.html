@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liz Youmans - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #5B7DBF 0%, #4a5fa8 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+        
+        /* HOME SCREEN */
+        #home {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        #home.hidden {
+            display: none;
+        }
+        
+        #home h1 {
+            font-size: 60px;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        #home p {
+            font-size: 18px;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 50px;
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            max-width: 800px;
+        }
+        
+        .menu-btn {
+            background-color: #F28C4C;
+            color: white;
+            padding: 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .menu-btn:hover {
+            background-color: #B06A8C;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        
+        /* PORTFOLIO */
+        #portfolio {
+            display: none;
+            flex-wrap: wrap;
+            min-height: 100vh;
+        }
+        
+        #portfolio.active {
+            display: flex;
+        }
+        
+        #sidebar {
+            width: 220px;
+            background-color: rgba(0,0,0,0.1);
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        #back-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: background-color 0.3s;
+        }
+        
+        #back-btn:hover {
+            background-color: #555;
+        }
+        
+        .nav-btn {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 8px;
+            background-color: #F28C4C;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            text-align: left;
+        }
+        
+        .nav-btn:hover,
+        .nav-btn.active {
+            background-color: #B06A8C;
+        }
+        
+        #main-content {
+            flex: 1;
+            padding: 30px 40px;
+            overflow-y: auto;
+            background-color: white;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .section {
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* INTRO SECTION */
+        .intro-container {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .intro-text {
+            flex: 1;
+        }
+        
+        .intro-photo {
+            flex: 0 0 250px;
+            text-align: right;
+        }
+        
+        .intro-photo img {
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 250px;
+        }
+        
+        .placeholder-image {
+            width: 250px;
+            height: 250px;
+            background-color: #f0f0f0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ccc;
+            font-size: 14px;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        h1, h2 {
+            color: #5B7DBF;
+            margin-bottom: 15px;
+            margin-top: 20px;
+        }
+        
+        h1 {
+            font-size: 36px;
+        }
+        
+        h2 {
+            font-size: 24px;
+        }
+        
+        p {
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        
+        /* WORK HISTORY */
+        .work-container {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .work-section {
+            flex: 1;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #F28C4C;
+        }
+        
+        .work-section ul {
+            margin-left: 20px;
+            line-height: 2;
+        }
+        
+        .work-section li {
+            color: #555;
+        }
+        
+        .resume-link {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #F28C4C;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            margin: 15px 0;
+            transition: background-color 0.3s;
+        }
+        
+        .resume-link:hover {
+            background-color: #B06A8C;
+        }
+        
+        /* MEDIA */
+        audio {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 8px;
+            margin: 20px 0;
+            background-color: #000;
+        }
+        
+        /* YOUTUBE VIDEO */
+        .youtube-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .youtube-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+        
+        /* CONTACT FORM */
+        #contact-form {
+            background-color: #B06A8C;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 600px;
+            color: white;
+        }
+        
+        #contact-form h2 {
+            color: white;
+        }
+        
+        #contact-form input,
+        #contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 14px;
+        }
+        
+        #contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #F28C4C;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: #333;
+        }
+        
+        /* BACK TO TOP */
+        #scroll-top {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: #F28C4C;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 999;
+            transition: background-color 0.3s;
+        }
+        
+        #scroll-top:hover {
+            background-color: #B06A8C;
+        }
+        
+        #scroll-top.show {
+            display: block;
+        }
+
+        /* SETTINGS BUTTON */
+        #settings-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+
+        #settings-btn:hover {
+            background-color: #555;
+        }
+
+        /* SETTINGS MODAL */
+        #settings-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1001;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #settings-modal.show {
+            display: flex;
+        }
+
+        .settings-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .settings-content h2 {
+            color: #5B7DBF;
+            margin-bottom: 20px;
+        }
+
+        .settings-item {
+            margin-bottom: 20px;
+        }
+
+        .settings-item label {
+            display: block;
+            font-weight: bold;
+            color: #5B7DBF;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .settings-item input[type="file"],
+        .settings-item input[type="text"],
+        .settings-item textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .settings-item input[type="file"]:focus,
+        .settings-item input[type="text"]:focus,
+        .settings-item textarea:focus {
+            border-color: #F28C4C;
+            outline: none;
+        }
+
+        .settings-item textarea {
+            resize: vertical;
+            min-height: 100px;
+            max-height: 150px;
+        }
+
+        .settings-hint {
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        .settings-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .settings-save, .settings-close {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .settings-save {
+            background-color: #F28C4C;
+            color: white;
+        }
+
+        .settings-save:hover {
+            background-color: #B06A8C;
+        }
+
+        .settings-close {
+            background-color: #ddd;
+            color: #333;
+        }
+
+        .settings-close:hover {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- SETTINGS BUTTON -->
+    <button id="settings-btn" onclick="openSettings()">⚙️ Settings</button>
+
+    <!-- SETTINGS MODAL -->
+    <div id="settings-modal">
+        <div class="settings-content">
+            <h2>Portfolio Settings</h2>
+            
+            <div class="settings-item">
+                <label for="settings-photo">Profile Photo:</label>
+                <input type="file" id="settings-photo" accept="image/*">
+                <div class="settings-hint">JPG, PNG, or GIF (recommended: 250x250px)</div>
+            </div>
+            
+            <div class="settings-item">
+                <label for="settings-audio">Audio File:</label>
+                <input type="file" id="settings-audio" accept="audio/*">
+                <div class="settings-hint">MP3 or WAV format</div>
+            </div>
+
+            <div class="settings-item">
+                <label for="settings-video">YouTube Video Link:</label>
+                <input type="text" id="settings-video" placeholder="https://youtu.be/JKwiYQ-5cCU or https://www.youtube.com/watch?v=JKwiYQ-5cCU">
+                <div class="settings-hint">Paste your YouTube link - both short and long links work</div>
+            </div>
+            
+            <div class="settings-item">
+                <label for="settings-bio">Your Bio:</label>
+                <textarea id="settings-bio" placeholder="Enter your professional bio...">I'm a Digital Media professional with a background in broadcast, live production, post-production, and social media, supported by formal training in Broadcast and Cinematic Arts and hands-on experience across audio, video, and live event environments. I've worked on everything from studio-based educational content to large-scale live events, and I enjoy being involved throughout the full production process, from setup and capture to post-production and delivery. I bring a detail-oriented approach to my work, with a strong focus on technical accuracy, organized workflows, and creating media that's both polished and purposeful.
+
+Beyond technical skills, I'm known as a calm, reliable collaborator who helps keep productions running smoothly under pressure. I lead through clear communication, adaptability, and a strong sense of responsibility to both the team and the project. Whether working with editors, engineers, stage crews, or on-air talent, I prioritize efficiency, safety, and collaboration, and I'm driven by a genuine passion for multimedia production and continuous growth in the field.</textarea>
+            </div>
+
+            <div class="settings-buttons">
+                <button class="settings-save" onclick="saveSettings()">Save</button>
+                <button class="settings-close" onclick="closeSettings()">Close</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- HOME SCREEN -->
+    <div id="home">
+        <h1>Liz Youmans</h1>
+        <p>Digital Media Professional</p>
+        <div class="menu-grid">
+            <button class="menu-btn" onclick="openPage('intro')">1. Intro</button>
+            <button class="menu-btn" onclick="openPage('work')">2. Work History</button>
+            <button class="menu-btn" onclick="openPage('onair')">3. On Air</button>
+            <button class="menu-btn" onclick="openPage('onscreen')">4. On Screen</button>
+            <button class="menu-btn" onclick="openPage('contact')">5. Contact</button>
+        </div>
+    </div>
+    
+    <!-- PORTFOLIO -->
+    <div id="portfolio">
+        <!-- SIDEBAR -->
+        <div id="sidebar">
+            <button id="back-btn" onclick="goHome()">← Home</button>
+            <button class="nav-btn active" onclick="switchPage('intro')">1. Intro</button>
+            <button class="nav-btn" onclick="switchPage('work')">2. Work History</button>
+            <button class="nav-btn" onclick="switchPage('onair')">3. On Air</button>
+            <button class="nav-btn" onclick="switchPage('onscreen')">4. On Screen</button>
+            <button class="nav-btn" onclick="switchPage('contact')">5. Contact</button>
+        </div>
+        
+        <!-- MAIN CONTENT -->
+        <div id="main-content">
+            
+            <!-- INTRO -->
+            <section id="intro" class="section active">
+                <div class="intro-container">
+                    <div class="intro-text">
+                        <h1>Liz Youmans</h1>
+                        <p id="bio-display"></p>
+                    </div>
+                    <div class="intro-photo">
+                        <img id="photo-display" src="" alt="Liz Youmans" style="display:none;">
+                        <div id="photo-placeholder" class="placeholder-image">📸 Photo will appear here</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- WORK HISTORY -->
+            <section id="work" class="section">
+                <h1>Work History</h1>
+                <div class="work-container">
+                    <div class="work-section">
+                        <h2>Resume</h2>
+                        <p>View my complete multimedia resume:</p>
+                        <a href="file:///Volumes/Extended%20HD/Resumes/MultiMedia%20Resume%202026.pdf" target="_blank" class="resume-link">📄 Download Resume</a>
+                    </div>
+                    <div class="work-section">
+                        <h2>Key Skills</h2>
+                        <ul>
+                            <li>Digital Media Production</li>
+                            <li>Broadcast & Live Production</li>
+                            <li>Post-Production & Editing</li>
+                            <li>Audio & Video Engineering</li>
+                            <li>Social Media Management</li>
+                            <li>Live Event Production</li>
+                            <li>Broadcast & Cinematic Arts</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- ON AIR -->
+            <section id="onair" class="section">
+                <h1>On Air</h1>
+                <p>Listen to my on-air work:</p>
+                <audio id="audio-display" controls style="display:none;"></audio>
+                <div id="audio-placeholder" style="background-color: #f0f0f0; padding: 20px; border-radius: 8px; text-align: center; color: #ccc;">🎙️ Audio will appear here</div>
+            </section>
+            
+            <!-- ON SCREEN -->
+            <section id="onscreen" class="section">
+                <h1>On Screen</h1>
+                <p>Watch my video demo:</p>
+                <div class="youtube-container" id="youtube-container" style="display:none;">
+                    <iframe id="youtube-iframe" title="Video Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <div id="video-placeholder" style="background-color: #f0f0f0; padding: 20px; border-radius: 8px; text-align: center; color: #ccc;">🎬 Video will appear here</div>
+            </section>
+            
+            <!-- CONTACT -->
+            <section id="contact" class="section">
+                <h1>Contact Me</h1>
+                <p>Email: <a href="mailto:Hananuiliz@gmail.com" style="color: #F28C4C; font-weight: bold;">Hananuiliz@gmail.com</a></p>
+                
+                <form id="contact-form" action="https://formspree.io/f/mjgerodl" method="POST">
+                    <h2>Send a Message</h2>
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <input type="text" name="subject" placeholder="Subject" required>
+                    <textarea name="message" placeholder="Your message..." required></textarea>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </section>
+            
+        </div>
+    </div>
+    
+    <!-- SCROLL TO TOP -->
+    <button id="scroll-top" onclick="scrollToTop()">↑</button>
+    
+    <script>
+        // Initialize portfolio data from localStorage
+        let portfolioData = {
+            photo: null,
+            audio: null,
+            videoLink: 'JKwiYQ-5cCU',
+            bio: 'I\'m a Digital Media professional with a background in broadcast, live production, post-production, and social media, supported by formal training in Broadcast and Cinematic Arts and hands-on experience across audio, video, and live event environments. I\'ve worked on everything from studio-based educational content to large-scale live events, and I enjoy being involved throughout the full production process, from setup and capture to post-production and delivery. I bring a detail-oriented approach to my work, with a strong focus on technical accuracy, organized workflows, and creating media that\'s both polished and purposeful.\n\nBeyond technical skills, I\'m known as a calm, reliable collaborator who helps keep productions running smoothly under pressure. I lead through clear communication, adaptability, and a strong sense of responsibility to both the team and the project. Whether working with editors, engineers, stage crews, or on-air talent, I prioritize efficiency, safety, and collaboration, and I\'m driven by a genuine passion for multimedia production and continuous growth in the field.'
+        };
+
+        // Extract video ID from YouTube URL
+        function extractVideoId(url) {
+            let videoId = '';
+            if (url.includes('youtu.be/')) {
+                videoId = url.split('youtu.be/')[1].split('?')[0];
+            } else if (url.includes('youtube.com/watch?v=')) {
+                videoId = url.split('youtube.com/watch?v=')[1].split('&')[0];
+            } else {
+                videoId = url;
+            }
+            return videoId;
+        }
+
+        // Load from localStorage
+        function loadData() {
+            const saved = localStorage.getItem('portfolioData');
+            if (saved) {
+                portfolioData = JSON.parse(saved);
+            }
+            updatePortfolio();
+        }
+
+        // Save to localStorage
+        function saveData() {
+            localStorage.setItem('portfolioData', JSON.stringify(portfolioData));
+        }
+
+        // Update portfolio display
+        function updatePortfolio() {
+            if (portfolioData.photo) {
+                document.getElementById('photo-display').src = portfolioData.photo;
+                document.getElementById('photo-display').style.display = 'block';
+                document.getElementById('photo-placeholder').style.display = 'none';
+            }
+            
+            if (portfolioData.audio) {
+                document.getElementById('audio-display').innerHTML = '';
+                const audioSource = document.createElement('source');
+                audioSource.src = portfolioData.audio;
+                audioSource.type = 'audio/mpeg';
+                document.getElementById('audio-display').appendChild(audioSource);
+                document.getElementById('audio-display').style.display = 'block';
+                document.getElementById('audio-placeholder').style.display = 'none';
+            }
+            
+            if (portfolioData.videoLink) {
+                const videoId = extractVideoId(portfolioData.videoLink);
+                const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+                document.getElementById('youtube-iframe').src = embedUrl;
+                document.getElementById('youtube-container').style.display = 'block';
+                document.getElementById('video-placeholder').style.display = 'none';
+            }
+            
+            if (portfolioData.bio) {
+                document.getElementById('bio-display').textContent = portfolioData.bio;
+            }
+        }
+
+        // Settings functions
+        function openSettings() {
+            document.getElementById('settings-modal').classList.add('show');
+            // Load current values
+            document.getElementById('settings-bio').value = portfolioData.bio;
+            document.getElementById('settings-video').value = portfolioData.videoLink;
+        }
+
+        function closeSettings() {
+            document.getElementById('settings-modal').classList.remove('show');
+        }
+
+        function saveSettings() {
+            const photoInput = document.getElementById('settings-photo');
+            const audioInput = document.getElementById('settings-audio');
+            const videoInput = document.getElementById('settings-video');
+            const bioInput = document.getElementById('settings-bio');
+
+            // Handle photo
+            if (photoInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    portfolioData.photo = e.target.result;
+                    saveRest();
+                };
+                reader.readAsDataURL(photoInput.files[0]);
+            } else {
+                saveRest();
+            }
+
+            function saveRest() {
+                // Handle audio
+                if (audioInput.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        portfolioData.audio = e.target.result;
+                        saveVideoAndBio();
+                    };
+                    reader.readAsDataURL(audioInput.files[0]);
+                } else {
+                    saveVideoAndBio();
+                }
+            }
+
+            function saveVideoAndBio() {
+                // Handle video link
+                if (videoInput.value) {
+                    portfolioData.videoLink = videoInput.value;
+                }
+                
+                // Handle bio
+                portfolioData.bio = bioInput.value;
+                saveData();
+                updatePortfolio();
+                closeSettings();
+            }
+        }
+
+        // Navigation functions
+        function openPage(pageId) {
+            document.getElementById('home').classList.add('hidden');
+            document.getElementById('portfolio').classList.add('active');
+            switchPage(pageId);
+        }
+        
+        function switchPage(pageId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(pageId).classList.add('active');
+            event.target.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function goHome() {
+            document.getElementById('portfolio').classList.remove('active');
+            document.getElementById('home').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('scroll-top');
+            if (window.pageYOffset > 300) {
+                btn.classList.add('show');
+            } else {
+                btn.classList.remove('show');
+            }
+        });
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', loadData);
+
+        // Close modal when clicking outside
+        document.getElementById('settings-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeSettings();
+            }
+        });
+    </script>
+</body>
+</html>
