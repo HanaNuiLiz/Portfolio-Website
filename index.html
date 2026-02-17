@@ -17,98 +17,6 @@
             color: #333;
             min-height: 100vh;
         }
-        
-        /* LOGIN SCREEN */
-        #login-screen {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        #login-screen.hidden {
-            display: none;
-        }
-
-        .login-container {
-            background-color: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .login-container h1 {
-            color: #5B7DBF;
-            margin-bottom: 10px;
-            font-size: 28px;
-        }
-
-        .login-container p {
-            color: #999;
-            margin-bottom: 30px;
-            font-size: 14px;
-        }
-
-        .login-item {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .login-item label {
-            display: block;
-            font-weight: bold;
-            color: #5B7DBF;
-            margin-bottom: 8px;
-        }
-
-        .login-item input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            font-size: 14px;
-            transition: border-color 0.3s;
-        }
-
-        .login-item input:focus {
-            border-color: #F28C4C;
-            outline: none;
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 12px;
-            background-color: #F28C4C;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .login-btn:hover {
-            background-color: #B06A8C;
-        }
-
-        .login-error {
-            color: #721c24;
-            background-color: #f8d7da;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            display: none;
-        }
-
-        .login-error.show {
-            display: block;
-        }
 
         /* HOME SCREEN */
         #home {
@@ -455,11 +363,6 @@
             font-size: 14px;
             z-index: 1000;
             transition: background-color 0.3s;
-            display: none;
-        }
-
-        #settings-btn.show {
-            display: block;
         }
 
         #settings-btn:hover {
@@ -499,6 +402,108 @@
             margin-bottom: 20px;
         }
 
+        .settings-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .settings-tab {
+            padding: 10px 15px;
+            background: none;
+            border: none;
+            color: #5B7DBF;
+            font-weight: bold;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .settings-tab.active {
+            border-bottom-color: #F28C4C;
+            color: #F28C4C;
+        }
+
+        .settings-tab-content {
+            display: none;
+        }
+
+        .settings-tab-content.active {
+            display: block;
+        }
+
+        /* LOGIN TAB */
+        .login-item {
+            margin-bottom: 20px;
+        }
+
+        .login-item label {
+            display: block;
+            font-weight: bold;
+            color: #5B7DBF;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .login-item input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .login-item input:focus {
+            border-color: #F28C4C;
+            outline: none;
+        }
+
+        .login-error {
+            color: #721c24;
+            background-color: #f8d7da;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .login-error.show {
+            display: block;
+        }
+
+        .login-success {
+            color: #155724;
+            background-color: #d4edda;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .login-success.show {
+            display: block;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #F28C4C;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login-btn:hover {
+            background-color: #B06A8C;
+        }
+
+        /* EDIT TAB */
         .settings-item {
             margin-bottom: 20px;
         }
@@ -586,70 +591,84 @@
         .logout-btn:hover {
             background-color: #c82333;
         }
+
+        .login-required {
+            color: #dc3545;
+            background-color: #f8d7da;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
-    
-    <!-- LOGIN SCREEN -->
-    <div id="login-screen">
-        <div class="login-container">
-            <h1>Liz Youmans</h1>
-            <p>Portfolio Admin</p>
-            
-            <div class="login-error" id="login-error"></div>
-            
-            <div class="login-item">
-                <label for="login-email">Email:</label>
-                <input type="text" id="login-email" placeholder="Enter your email">
-            </div>
-            
-            <div class="login-item">
-                <label for="login-password">Password:</label>
-                <input type="password" id="login-password" placeholder="Enter your password">
-            </div>
-            
-            <button class="login-btn" onclick="handleLogin()">Login</button>
-        </div>
-    </div>
 
     <!-- SETTINGS BUTTON -->
-    <button id="settings-btn" class="show" onclick="openSettings()">⚙️ Settings</button>
+    <button id="settings-btn" onclick="openSettings()">⚙️ Settings</button>
 
     <!-- SETTINGS MODAL -->
     <div id="settings-modal">
         <div class="settings-content">
-            <h2>Portfolio Settings</h2>
-            
-            <div class="settings-item">
-                <label for="settings-photo">Profile Photo:</label>
-                <input type="file" id="settings-photo" accept="image/*">
-                <div class="settings-hint">JPG, PNG, or GIF (recommended: 250x250px)</div>
-            </div>
-            
-            <div class="settings-item">
-                <label for="settings-audio">Audio File:</label>
-                <input type="file" id="settings-audio" accept="audio/*">
-                <div class="settings-hint">MP3 or WAV format</div>
+            <h2>Portfolio</h2>
+
+            <div class="settings-tabs">
+                <button class="settings-tab active" onclick="switchTab('login')">Admin Login</button>
+                <button class="settings-tab" id="edit-tab" onclick="switchTab('edit')" style="display:none;">Edit Portfolio</button>
             </div>
 
-            <div class="settings-item">
-                <label for="settings-video">YouTube Video Link:</label>
-                <input type="text" id="settings-video" placeholder="https://youtu.be/JKwiYQ-5cCU or https://www.youtube.com/watch?v=JKwiYQ-5cCU">
-                <div class="settings-hint">Paste your YouTube link - both short and long links work</div>
+            <!-- LOGIN TAB -->
+            <div id="login-tab" class="settings-tab-content active">
+                <div class="login-error" id="login-error"></div>
+                <div class="login-success" id="login-success"></div>
+
+                <div class="login-item">
+                    <label for="login-email">Email:</label>
+                    <input type="text" id="login-email" placeholder="Enter your email">
+                </div>
+                
+                <div class="login-item">
+                    <label for="login-password">Password:</label>
+                    <input type="password" id="login-password" placeholder="Enter your password">
+                </div>
+                
+                <button class="login-btn" onclick="handleLogin()">Login</button>
+                <button class="settings-close" onclick="closeSettings()" style="width:100%; margin-top:10px;">Close</button>
             </div>
-            
-            <div class="settings-item">
-                <label for="settings-bio">Your Bio:</label>
-                <textarea id="settings-bio" placeholder="Enter your professional bio...">I'm a Digital Media professional with a background in broadcast, live production, post-production, and social media, supported by formal training in Broadcast and Cinematic Arts and hands-on experience across audio, video, and live event environments. I've worked on everything from studio-based educational content to large-scale live events, and I enjoy being involved throughout the full production process, from setup and capture to post-production and delivery. I bring a detail-oriented approach to my work, with a strong focus on technical accuracy, organized workflows, and creating media that's both polished and purposeful.
+
+            <!-- EDIT TAB -->
+            <div id="edit-tab-content" class="settings-tab-content">
+                <div class="settings-item">
+                    <label for="settings-photo">Profile Photo:</label>
+                    <input type="file" id="settings-photo" accept="image/*">
+                    <div class="settings-hint">JPG, PNG, or GIF (recommended: 250x250px)</div>
+                </div>
+                
+                <div class="settings-item">
+                    <label for="settings-audio">Audio File:</label>
+                    <input type="file" id="settings-audio" accept="audio/*">
+                    <div class="settings-hint">MP3 or WAV format</div>
+                </div>
+
+                <div class="settings-item">
+                    <label for="settings-video">YouTube Video Link:</label>
+                    <input type="text" id="settings-video" placeholder="https://youtu.be/JKwiYQ-5cCU or https://www.youtube.com/watch?v=JKwiYQ-5cCU">
+                    <div class="settings-hint">Paste your YouTube link - both short and long links work</div>
+                </div>
+                
+                <div class="settings-item">
+                    <label for="settings-bio">Your Bio:</label>
+                    <textarea id="settings-bio" placeholder="Enter your professional bio...">I'm a Digital Media professional with a background in broadcast, live production, post-production, and social media, supported by formal training in Broadcast and Cinematic Arts and hands-on experience across audio, video, and live event environments. I've worked on everything from studio-based educational content to large-scale live events, and I enjoy being involved throughout the full production process, from setup and capture to post-production and delivery. I bring a detail-oriented approach to my work, with a strong focus on technical accuracy, organized workflows, and creating media that's both polished and purposeful.
 
 Beyond technical skills, I'm known as a calm, reliable collaborator who helps keep productions running smoothly under pressure. I lead through clear communication, adaptability, and a strong sense of responsibility to both the team and the project. Whether working with editors, engineers, stage crews, or on-air talent, I prioritize efficiency, safety, and collaboration, and I'm driven by a genuine passion for multimedia production and continuous growth in the field.</textarea>
-            </div>
+                </div>
 
-            <div class="settings-buttons">
-                <button class="settings-save" onclick="saveSettings()">Save</button>
-                <button class="settings-close" onclick="closeSettings()">Close</button>
+                <div class="settings-buttons">
+                    <button class="settings-save" onclick="saveSettings()">Save</button>
+                    <button class="settings-close" onclick="closeSettings()">Close</button>
+                </div>
+                <button class="logout-btn" onclick="logout()" style="margin-top: 10px;">Logout</button>
             </div>
-            <button class="logout-btn" onclick="logout()" style="margin-top: 10px;">Logout</button>
         </div>
     </div>
     
@@ -768,15 +787,24 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
         function handleLogin() {
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
+            const errorDiv = document.getElementById('login-error');
+            const successDiv = document.getElementById('login-success');
+
+            errorDiv.classList.remove('show');
+            successDiv.classList.remove('show');
 
             if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
                 isLoggedIn = true;
                 localStorage.setItem('portfolioLoggedIn', 'true');
-                document.getElementById('login-screen').classList.add('hidden');
-                document.getElementById('home').classList.remove('hidden');
-                loadData();
+                
+                successDiv.textContent = 'Login successful!';
+                successDiv.classList.add('show');
+
+                // Switch to edit tab
+                setTimeout(() => {
+                    switchTab('edit');
+                }, 500);
             } else {
-                const errorDiv = document.getElementById('login-error');
                 errorDiv.textContent = 'Invalid email or password';
                 errorDiv.classList.add('show');
             }
@@ -785,22 +813,41 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
         function logout() {
             isLoggedIn = false;
             localStorage.removeItem('portfolioLoggedIn');
-            document.getElementById('settings-modal').classList.remove('show');
-            document.getElementById('portfolio').classList.remove('active');
-            document.getElementById('home').classList.add('hidden');
-            document.getElementById('login-screen').classList.remove('hidden');
+            switchTab('login');
             document.getElementById('login-email').value = '';
             document.getElementById('login-password').value = '';
+        }
+
+        function switchTab(tab) {
+            if (tab === 'edit' && !isLoggedIn) {
+                alert('Please login first');
+                return;
+            }
+
+            // Hide all tabs
+            document.getElementById('login-tab').classList.remove('active');
+            document.getElementById('edit-tab-content').classList.remove('active');
+            
+            // Hide all tab buttons
+            document.querySelectorAll('.settings-tab').forEach(t => t.classList.remove('active'));
+
+            // Show selected tab
+            if (tab === 'login') {
+                document.getElementById('login-tab').classList.add('active');
+                document.querySelectorAll('.settings-tab')[0].classList.add('active');
+            } else if (tab === 'edit') {
+                document.getElementById('edit-tab-content').classList.add('active');
+                document.querySelectorAll('.settings-tab')[1].classList.add('active');
+            }
         }
 
         // Check if already logged in
         window.addEventListener('load', function() {
             if (localStorage.getItem('portfolioLoggedIn') === 'true') {
                 isLoggedIn = true;
-                document.getElementById('login-screen').classList.add('hidden');
-                document.getElementById('home').classList.remove('hidden');
-                loadData();
+                document.getElementById('edit-tab').style.display = 'block';
             }
+            loadData();
         });
 
         // Initialize portfolio data from localStorage
@@ -872,8 +919,11 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
         // Settings functions
         function openSettings() {
             document.getElementById('settings-modal').classList.add('show');
-            document.getElementById('settings-bio').value = portfolioData.bio;
-            document.getElementById('settings-video').value = portfolioData.videoLink;
+            if (isLoggedIn) {
+                document.getElementById('edit-tab').style.display = 'block';
+                document.getElementById('settings-bio').value = portfolioData.bio;
+                document.getElementById('settings-video').value = portfolioData.videoLink;
+            }
         }
 
         function closeSettings() {
@@ -972,5 +1022,7 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
             }
         });
     </script>
+</body>
+</html>
 </body>
 </html>
