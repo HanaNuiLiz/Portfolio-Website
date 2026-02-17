@@ -173,20 +173,6 @@
             max-width: 250px;
         }
         
-        .placeholder-image {
-            width: 250px;
-            height: 250px;
-            background-color: #f0f0f0;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ccc;
-            font-size: 14px;
-            text-align: center;
-            padding: 20px;
-        }
-        
         h1, h2 {
             color: #5B7DBF;
             margin-bottom: 15px;
@@ -589,15 +575,6 @@
         .logout-btn:hover {
             background-color: #c82333;
         }
-
-        .login-required {
-            color: #dc3545;
-            background-color: #f8d7da;
-            padding: 15px;
-            border-radius: 6px;
-            text-align: center;
-            font-weight: bold;
-        }
     </style>
 </head>
 <body>
@@ -637,6 +614,18 @@
             <!-- EDIT TAB -->
             <div id="edit-tab-content" class="settings-tab-content">
                 <div class="settings-item">
+                    <label for="settings-photo-url">Photo URL:</label>
+                    <input type="text" id="settings-photo-url" placeholder="https://ibb.co/5pm6G6m">
+                    <div class="settings-hint">Paste your photo link (ImgBB, direct image URL, etc.)</div>
+                </div>
+
+                <div class="settings-item">
+                    <label for="settings-audio-url">Audio URL:</label>
+                    <input type="text" id="settings-audio-url" placeholder="https://voca.ro/12StjOjnPdbI">
+                    <div class="settings-hint">Paste your audio link (Vocaroo, direct audio URL, etc.)</div>
+                </div>
+
+                <div class="settings-item">
                     <label for="settings-video">YouTube Video Link:</label>
                     <input type="text" id="settings-video" placeholder="https://youtu.be/JKwiYQ-5cCU">
                     <div class="settings-hint">Paste your YouTube link - both short and long links work</div>
@@ -644,26 +633,9 @@
                 
                 <div class="settings-item">
                     <label for="settings-bio">Your Bio:</label>
-                    <textarea id="settings-bio" placeholder="Enter your professional bio...">I'm a Digital Media professional with a background in broadcast, live production, post-production, and social media, supported by formal training in Broadcast and Cinematic Arts and hands-on experience across audio, video, and live event environments. I've worked on everything from studio-based educational content to large-scale live events, and I enjoy being involved throughout the full production process, from setup and capture to post-production and delivery. I bring a detail-oriented approach to my work, with a strong focus on technical accuracy, organized workflows, and creating media that's both polished and purposeful.
+                    <textarea id="settings-bio">I'm a Digital Media professional with a background in broadcast, live production, post-production, and social media, supported by formal training in Broadcast and Cinematic Arts and hands-on experience across audio, video, and live event environments. I've worked on everything from studio-based educational content to large-scale live events, and I enjoy being involved throughout the full production process, from setup and capture to post-production and delivery. I bring a detail-oriented approach to my work, with a strong focus on technical accuracy, organized workflows, and creating media that's both polished and purposeful.
 
 Beyond technical skills, I'm known as a calm, reliable collaborator who helps keep productions running smoothly under pressure. I lead through clear communication, adaptability, and a strong sense of responsibility to both the team and the project. Whether working with editors, engineers, stage crews, or on-air talent, I prioritize efficiency, safety, and collaboration, and I'm driven by a genuine passion for multimedia production and continuous growth in the field.</textarea>
-                </div>
-
-                <div class="settings-item">
-                    <label>Asset URLs:</label>
-                    <p style="font-size: 12px; color: #666; margin-bottom: 10px;">
-                        <strong>Instructions:</strong> Use ImgBB for photos and Vocaroo for audio files.
-                    </p>
-                    
-                    <label for="settings-photo-url" style="font-size: 12px; margin-top: 10px;">Photo URL:</label>
-                    <input type="text" id="settings-photo-url" placeholder="https://ibb.co/5pm6G6m">
-                    <div class="settings-hint">Paste your photo link from ImgBB</div>
-                </div>
-
-                <div class="settings-item">
-                    <label for="settings-audio-url">Audio URL:</label>
-                    <input type="text" id="settings-audio-url" placeholder="https://voca.ro/12StjOjnPdbI">
-                    <div class="settings-hint">Paste your audio link from Vocaroo</div>
                 </div>
 
                 <div class="settings-buttons">
@@ -711,8 +683,7 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
                         <p id="bio-display"></p>
                     </div>
                     <div class="intro-photo">
-                        <img id="photo-display" src="" alt="Liz Youmans" style="display:none;">
-                        <div id="photo-placeholder" class="placeholder-image">📸 Photo will appear here</div>
+                        <img id="photo-display" src="https://ibb.co/5pm6G6m" alt="Liz Youmans">
                     </div>
                 </div>
             </section>
@@ -745,18 +716,19 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
             <section id="onair" class="section">
                 <h1>On Air</h1>
                 <p>Listen to my on-air work:</p>
-                <audio id="audio-display" controls style="display:none;"></audio>
-                <div id="audio-placeholder" style="background-color: #f0f0f0; padding: 20px; border-radius: 8px; text-align: center; color: #ccc;">🎙️ Audio will appear here</div>
+                <audio id="audio-display" controls>
+                    <source src="https://voca.ro/12StjOjnPdbI" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
             </section>
             
             <!-- ON SCREEN -->
             <section id="onscreen" class="section">
                 <h1>On Screen</h1>
                 <p>Watch my video demo:</p>
-                <div class="youtube-container" id="youtube-container" style="display:none;">
+                <div class="youtube-container">
                     <iframe id="youtube-iframe" title="Video Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" loading="lazy"></iframe>
                 </div>
-                <div id="video-placeholder" style="background-color: #f0f0f0; padding: 20px; border-radius: 8px; text-align: center; color: #ccc;">🎬 Video will appear here</div>
             </section>
             
             <!-- CONTACT -->
@@ -803,7 +775,6 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
                 successDiv.textContent = 'Login successful!';
                 successDiv.classList.add('show');
 
-                // Switch to edit tab
                 setTimeout(() => {
                     switchTab('edit');
                 }, 500);
@@ -827,14 +798,11 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
                 return;
             }
 
-            // Hide all tabs
             document.getElementById('login-tab').classList.remove('active');
             document.getElementById('edit-tab-content').classList.remove('active');
             
-            // Hide all tab buttons
             document.querySelectorAll('.settings-tab').forEach(t => t.classList.remove('active'));
 
-            // Show selected tab
             if (tab === 'login') {
                 document.getElementById('login-tab').classList.add('active');
                 document.querySelectorAll('.settings-tab')[0].classList.add('active');
@@ -853,7 +821,7 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
             loadData();
         });
 
-        // Portfolio data object with your links
+        // Portfolio data object with embedded links
         let portfolioData = {
             photoUrl: 'https://ibb.co/5pm6G6m',
             audioUrl: 'https://voca.ro/12StjOjnPdbI',
@@ -890,30 +858,28 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
 
         // Update portfolio display
         function updatePortfolio() {
+            // Update photo
             if (portfolioData.photoUrl) {
                 document.getElementById('photo-display').src = portfolioData.photoUrl;
-                document.getElementById('photo-display').style.display = 'block';
-                document.getElementById('photo-placeholder').style.display = 'none';
             }
             
+            // Update audio
             if (portfolioData.audioUrl) {
-                document.getElementById('audio-display').innerHTML = '';
-                const audioSource = document.createElement('source');
-                audioSource.src = portfolioData.audioUrl;
-                audioSource.type = 'audio/mpeg';
-                document.getElementById('audio-display').appendChild(audioSource);
-                document.getElementById('audio-display').style.display = 'block';
-                document.getElementById('audio-placeholder').style.display = 'none';
+                const audioSource = document.querySelector('#audio-display source');
+                if (audioSource) {
+                    audioSource.src = portfolioData.audioUrl;
+                }
+                document.getElementById('audio-display').load();
             }
             
+            // Update video
             if (portfolioData.videoLink) {
                 const videoId = extractVideoId(portfolioData.videoLink);
                 const embedUrl = `https://www.youtube.com/embed/${videoId}`;
                 document.getElementById('youtube-iframe').src = embedUrl;
-                document.getElementById('youtube-container').style.display = 'block';
-                document.getElementById('video-placeholder').style.display = 'none';
             }
             
+            // Update bio
             if (portfolioData.bio) {
                 document.getElementById('bio-display').textContent = portfolioData.bio;
             }
