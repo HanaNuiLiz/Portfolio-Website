@@ -41,21 +41,41 @@ from{transform:translate(0,0);}
 to{transform:translate(60px,40px);}
 }
 
-/* HOME */
+/* HOME - DVD MENU STYLE */
 #home{
 display:flex;flex-direction:column;justify-content:center;align-items:center;
 min-height:100vh;color:white;text-align:center;padding:40px;
 animation:fadeIn 1s ease;
+position:relative;
 }
-#home h1{font-size:68px;font-weight:800;letter-spacing:-2px;margin-bottom:10px;}
-#home p{font-size:20px;opacity:0.9;margin-bottom:30px;}
 
-/* Animated tagline - Smooth, slow, continual loop */
+/* DVD Menu Container */
+.dvd-menu-container{
+background:rgba(0,0,0,0.3);
+padding:60px 80px;
+border-radius:20px;
+backdrop-filter:blur(10px);
+border:3px solid rgba(242,140,76,0.5);
+box-shadow:0 8px 32px rgba(0,0,0,0.3), inset 0 0 30px rgba(242,140,76,0.1);
+}
+
+#home h1{
+font-size:68px;font-weight:800;letter-spacing:-2px;margin-bottom:10px;
+text-shadow:3px 3px 10px rgba(0,0,0,0.5), 0 0 20px rgba(242,140,76,0.3);
+}
+#home p{
+font-size:20px;opacity:0.9;margin-bottom:40px;
+text-shadow:2px 2px 5px rgba(0,0,0,0.5);
+}
+
+/* Animated tagline */
 .tagline{
-height:30px;overflow:hidden;position:relative;margin-bottom:40px;
+height:30px;overflow:hidden;position:relative;margin-bottom:50px;
+font-size:18px;font-style:italic;
 }
 .tagline-text{
 animation:smoothContinualScroll 16s linear infinite;
+text-shadow:2px 2px 5px rgba(0,0,0,0.5);
 }
 @keyframes smoothContinualScroll{
 0%{transform:translateY(0);}
@@ -65,21 +85,100 @@ animation:smoothContinualScroll 16s linear infinite;
 100%{transform:translateY(-120px);}
 }
 
+/* DVD Menu Grid */
 .menu-grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-gap:20px;width:100%;max-width:800px;
+grid-template-columns:repeat(2,1fr);
+gap:20px;width:100%;max-width:500px;
 }
+
 .menu-btn{
-background:var(--accent);border:none;padding:18px;
-border-radius:14px;color:white;font-weight:600;
-cursor:pointer;transition:.3s;
-box-shadow:0 8px 20px rgba(0,0,0,.2);
+background:linear-gradient(135deg,var(--accent),#ff9d5c);
+border:3px solid rgba(255,255,255,0.4);
+padding:25px 20px;
+border-radius:12px;color:white;font-weight:700;
+cursor:pointer;
+box-shadow:0 8px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+transition:all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+position:relative;
+overflow:hidden;
+font-size:16px;
+letter-spacing:1px;
+text-transform:uppercase;
 }
+
+/* DVD menu button hover effect */
+.menu-btn::before{
+content:"";
+position:absolute;
+top:0;left:-100%;
+width:100%;height:100%;
+background:rgba(255,255,255,0.3);
+transition:.4s;
+}
+
 .menu-btn:hover{
-transform:translateY(-6px);
+transform:scale(1.08) translateY(-4px);
+background:linear-gradient(135deg,#B06A8C,#d85a6a);
+border-color:rgba(255,255,255,0.8);
+box-shadow:0 12px 30px rgba(242,140,76,0.5), inset 0 1px 0 rgba(255,255,255,0.3);
+text-shadow:0 0 10px rgba(255,255,255,0.5);
+}
+
+.menu-btn:hover::before{
+left:100%;
+}
+
+.menu-btn:active{
+transform:scale(0.98) translateY(-2px);
+}
+
+/* DVD cursor indicator */
+.menu-btn::after{
+content:"►";
+position:absolute;
+right:15px;
+opacity:0;
+transition:.3s;
+font-size:20px;
+}
+
+.menu-btn:hover::after{
+opacity:1;
+animation:blink 0.6s infinite;
+}
+
+@keyframes blink{
+0%, 50%{opacity:1;}
+51%, 100%{opacity:0;}
+}
+
+/* Home footer contact section */
+.home-footer{
+position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+text-align:center;color:white;
+}
+
+.home-footer p{
+font-size:16px;margin-bottom:15px;text-shadow:2px 2px 5px rgba(0,0,0,0.5);
+}
+
+.footer-links{
+display:flex;gap:15px;justify-content:center;
+}
+
+.footer-link{
+display:inline-block;padding:10px 20px;
+background:rgba(242,140,76,0.8);color:white;
+border-radius:8px;text-decoration:none;
+font-weight:600;transition:.3s;
+border:2px solid rgba(255,255,255,0.3);
+}
+
+.footer-link:hover{
 background:var(--accent-dark);
-box-shadow:0 12px 30px rgba(0,0,0,.3);
+border-color:rgba(255,255,255,0.8);
+transform:translateY(-4px);
 }
 
 /* PORTFOLIO */
@@ -169,60 +268,6 @@ background:var(--accent-dark);
 transform:translateY(-4px);
 }
 
-/* Resume Preview Modal */
-.modal{
-display:none;position:fixed;top:0;left:0;
-width:100%;height:100%;
-background:rgba(0,0,0,.7);z-index:1000;
-align-items:center;justify-content:center;
-}
-.modal.active{display:flex;}
-.modal-content{
-background:white;padding:30px;border-radius:20px;
-max-width:800px;width:90%;max-height:80vh;
-overflow-y:auto;position:relative;
-}
-.modal-close{
-position:absolute;top:20px;right:20px;
-background:var(--accent);color:white;
-border:none;width:40px;height:40px;
-border-radius:50%;cursor:pointer;font-size:24px;
-transition:.3s;
-}
-.modal-close:hover{
-background:var(--accent-dark);transform:scale(1.1);
-}
-.resume-preview{
-background:#f5f5f5;padding:40px;
-border-radius:12px;min-height:600px;
-line-height:1.6;color:#333;
-}
-
-/* Waveform Background */
-.wave-container{
-position:relative;
-overflow:hidden;
-}
-.wave{
-position:absolute;
-width:200%;
-height:120px;
-background:repeating-linear-gradient(
-90deg,
-rgba(242,140,76,.4) 0px,
-rgba(242,140,76,.4) 2px,
-transparent 2px,
-transparent 8px
-);
-bottom:0;
-animation:waveMove 6s linear infinite;
-opacity:.4;
-}
-@keyframes waveMove{
-from{transform:translateX(0);}
-to{transform:translateX(-50%);}
-}
-
 /* SoundCloud Embed */
 #audio-embed{
 margin:20px 0;
@@ -245,6 +290,22 @@ color:white;padding:40px;border-radius:24px;
 max-width:600px;
 }
 
+.contact-links{
+display:flex;gap:15px;margin-top:30px;
+}
+
+.contact-link{
+display:inline-block;padding:12px 24px;
+background:var(--accent);color:white;
+border-radius:12px;text-decoration:none;
+font-weight:600;transition:.3s;
+cursor:pointer;border:none;
+}
+.contact-link:hover{
+background:rgba(255,255,255,0.2);
+transform:translateY(-4px);
+}
+
 @keyframes fadeIn{
 from{opacity:0;}to{opacity:1;}
 }
@@ -261,6 +322,10 @@ color:var(--primary);margin-bottom:20px;
 #home h1{font-size:48px;}
 .intro{flex-direction:column;}
 .headshot{width:100%;height:auto;}
+.menu-grid{grid-template-columns:1fr;}
+.dvd-menu-container{padding:40px;}
+.contact-links{flex-direction:column;}
+.home-footer{position:relative;bottom:auto;transform:none;margin-top:40px;}
 }
 </style>
 </head>
@@ -268,8 +333,9 @@ color:var(--primary);margin-bottom:20px;
 <body>
 
 <div id="home">
-<h1>Liz Youmans</h1>
-<p>Multimedia Professional</p>
+<div class="dvd-menu-container">
+<h1>LIZ YOUMANS</h1>
+<p style="text-shadow:2px 2px 5px rgba(0,0,0,0.5);">MULTIMEDIA PORTFOLIO</p>
 <div class="tagline">
 <div class="tagline-text">
 <div>🎬 Video Production</div>
@@ -280,11 +346,18 @@ color:var(--primary);margin-bottom:20px;
 </div>
 </div>
 <div class="menu-grid">
-<button class="menu-btn" onclick="openPage('intro')">Intro</button>
-<button class="menu-btn" onclick="openPage('work')">Work</button>
-<button class="menu-btn" onclick="openPage('onair')">On Air</button>
-<button class="menu-btn" onclick="openPage('onscreen')">On Screen</button>
-<button class="menu-btn" onclick="openPage('contact')">Contact</button>
+<button class="menu-btn" onclick="openPage('intro')">▶ Intro</button>
+<button class="menu-btn" onclick="openPage('work')">▶ Work</button>
+<button class="menu-btn" onclick="openPage('onair')">▶ On Air</button>
+<button class="menu-btn" onclick="openPage('onscreen')">▶ On Screen</button>
+</div>
+</div>
+<div class="home-footer">
+<p style="font-size:18px;">Get In Touch</p>
+<div class="footer-links">
+<a href="mailto:Hananuiliz@gmail.com" class="footer-link">📧 Email</a>
+<a href="https://www.linkedin.com/in/liz-youmans-audio" target="_blank" class="footer-link">💼 LinkedIn</a>
+</div>
 </div>
 </div>
 
@@ -317,14 +390,12 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
 <section id="work" class="section">
 <h1>Work & Resume</h1>
 <div class="card">
-<button onclick="openResumePreview()" class="resume-btn">📄 Preview Resume</button>
-<a id="resume-link" href="" target="_blank" class="resume-btn" style="margin-left:10px;">⬇️ Download Resume</a>
+<a id="resume-link" href="" target="_blank" class="resume-btn">⬇️ Download Resume</a>
 </div>
 </section>
 
-<section id="onair" class="section wave-container">
+<section id="onair" class="section">
 <h1>On Air</h1>
-<div class="wave"></div>
 <div id="audio-embed"></div>
 </section>
 
@@ -338,23 +409,14 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
 <section id="contact" class="section">
 <h1>Contact</h1>
 <div class="contact-card">
-<p>Email: <strong>Hananuiliz@gmail.com</strong></p>
+<p>Get in touch with me!</p>
+<div class="contact-links">
+<a href="mailto:Hananuiliz@gmail.com" class="contact-link">📧 Email</a>
+<a href="https://www.linkedin.com/in/liz-youmans-audio" target="_blank" class="contact-link">💼 LinkedIn</a>
+</div>
 </div>
 </section>
 
-</div>
-</div>
-
-<!-- Resume Preview Modal -->
-<div id="resumeModal" class="modal">
-<div class="modal-content">
-<button class="modal-close" onclick="closeResumePreview()">×</button>
-<h2>Resume Preview</h2>
-<div class="resume-preview">
-<p><strong>Loading resume preview...</strong></p>
-<p>Click the download button below to view the full resume.</p>
-<a id="modal-resume-link" href="" target="_blank" class="resume-btn" style="display:inline-block;margin-top:20px;">⬇️ Download Full Resume</a>
-</div>
 </div>
 </div>
 
@@ -371,26 +433,8 @@ const ASSETS = {
 window.addEventListener('load', () => {
   document.getElementById('headshot').src = ASSETS.photo;
   document.getElementById('resume-link').href = ASSETS.resume;
-  document.getElementById('modal-resume-link').href = ASSETS.resume;
   document.getElementById('youtube-player').src = `https://www.youtube.com/embed/${ASSETS.videoId}`;
   document.getElementById('audio-embed').innerHTML = ASSETS.soundcloudEmbed;
-});
-
-// Resume Preview Functions
-function openResumePreview(){
-  document.getElementById('resumeModal').classList.add('active');
-}
-
-function closeResumePreview(){
-  document.getElementById('resumeModal').classList.remove('active');
-}
-
-// Close modal when clicking outside
-document.addEventListener('click', function(e){
-  const modal = document.getElementById('resumeModal');
-  if(e.target === modal){
-    closeResumePreview();
-  }
 });
 
 // Navigation functions
