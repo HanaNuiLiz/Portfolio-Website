@@ -555,6 +555,11 @@
         .logout-btn:hover {
             background-color: #c82333;
         }
+
+        #audio-container {
+            width: 100%;
+            max-width: 600px;
+        }
     </style>
 </head>
 <body>
@@ -591,20 +596,20 @@
             <div id="edit-tab-content" class="settings-tab-content">
                 <div class="settings-item">
                     <label for="settings-photo-url">Photo URL:</label>
-                    <input type="text" id="settings-photo-url" placeholder="https://ibb.co/5pm6G6m">
-                    <div class="settings-hint">Enter image URL from ImgBB or any image host</div>
+                    <input type="text" id="settings-photo-url" placeholder="https://example.com/photo.jpg">
+                    <div class="settings-hint">Enter direct image URL</div>
                 </div>
 
                 <div class="settings-item">
                     <label for="settings-audio-url">Audio URL:</label>
-                    <input type="text" id="settings-audio-url" placeholder="https://voca.ro/12StjOjnPdbI">
-                    <div class="settings-hint">Enter audio URL from Vocaroo or any audio host</div>
+                    <input type="text" id="settings-audio-url" placeholder="https://example.com/audio.mp3">
+                    <div class="settings-hint">Enter direct audio URL</div>
                 </div>
 
                 <div class="settings-item">
                     <label for="settings-video-url">YouTube Video ID:</label>
                     <input type="text" id="settings-video-url" placeholder="JKwiYQ-5cCU">
-                    <div class="settings-hint">Enter just the video ID (from youtube.com/watch?v=ID or youtu.be/ID)</div>
+                    <div class="settings-hint">Enter just the video ID</div>
                 </div>
 
                 <div class="settings-item">
@@ -683,7 +688,7 @@
             <section id="onair" class="section">
                 <h1>On Air</h1>
                 <p>Listen to my on-air work:</p>
-                <audio id="audio-display" controls></audio>
+                <div id="audio-container"></div>
             </section>
             
             <section id="onscreen" class="section">
@@ -719,8 +724,8 @@
         let isLoggedIn = false;
 
         // HARDCODED ASSETS - Change only these values
-        const PHOTO_URL = 'https://ibb.co/5pm6G6m';
-        const AUDIO_URL = 'https://voca.ro/12StjOjnPdbI';
+        const PHOTO_URL = 'https://i.ibb.co/JqXXXXX/photo.jpg';
+        const AUDIO_URL = 'https://cdn.soundcloud.com/media/audio.mp3';
         const VIDEO_ID = 'JKwiYQ-5cCU';
         const BIO_TEXT = "I'm a Digital Media professional with a background in broadcast, live production, post-production, and social media, supported by formal training in Broadcast and Cinematic Arts and hands-on experience across audio, video, and live event environments. I've worked on everything from studio-based educational content to large-scale live events, and I enjoy being involved throughout the full production process, from setup and capture to post-production and delivery. I bring a detail-oriented approach to my work, with a strong focus on technical accuracy, organized workflows, and creating media that's both polished and purposeful.\n\nBeyond technical skills, I'm known as a calm, reliable collaborator who helps keep productions running smoothly under pressure. I lead through clear communication, adaptability, and a strong sense of responsibility to both the team and the project. Whether working with editors, engineers, stage crews, or on-air talent, I prioritize efficiency, safety, and collaboration, and I'm driven by a genuine passion for multimedia production and continuous growth in the field.";
 
@@ -736,7 +741,7 @@
             if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
                 isLoggedIn = true;
                 
-                successDiv.textContent = 'Login successful! Note: Changes must be made directly in the code.';
+                successDiv.textContent = 'Login successful! To update assets, edit the code values at the top and redeploy.';
                 successDiv.classList.add('show');
 
                 setTimeout(() => {
@@ -785,12 +790,8 @@
             document.getElementById('photo-display').src = PHOTO_URL;
 
             // Load Audio
-            const audioElement = document.getElementById('audio-display');
-            audioElement.innerHTML = '';
-            const source = document.createElement('source');
-            source.src = AUDIO_URL;
-            source.type = 'audio/mpeg';
-            audioElement.appendChild(source);
+            const audioContainer = document.getElementById('audio-container');
+            audioContainer.innerHTML = `<audio controls style="width: 100%; max-width: 600px;"><source src="${AUDIO_URL}" type="audio/mpeg">Your browser does not support the audio element.</audio>`;
 
             // Load Video
             const embedUrl = `https://www.youtube.com/embed/${VIDEO_ID}`;
@@ -816,7 +817,7 @@
         }
 
         function saveSettings() {
-            alert('To update the assets, you need to edit the code directly.\n\nChange these values at the top of the JavaScript:\n- PHOTO_URL\n- AUDIO_URL\n- VIDEO_ID\n- BIO_TEXT');
+            alert('To update assets:\n\n1. Edit these values at the top of the code:\n   • PHOTO_URL\n   • AUDIO_URL\n   • VIDEO_ID\n   • BIO_TEXT\n\n2. Save the file\n3. Re-upload to GitHub\n\nChanges appear instantly everywhere!');
         }
 
         function openPage(pageId) {
