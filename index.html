@@ -367,7 +367,7 @@
             background-color: white;
             padding: 30px;
             border-radius: 12px;
-            max-width: 500px;
+            max-width: 600px;
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
@@ -427,12 +427,6 @@
             border: 2px solid #ddd;
             border-radius: 6px;
             font-size: 14px;
-            transition: border-color 0.3s;
-        }
-
-        .login-item input:focus {
-            border-color: #F28C4C;
-            outline: none;
         }
 
         .login-error {
@@ -471,7 +465,6 @@
             font-weight: bold;
             font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s;
         }
 
         .login-btn:hover {
@@ -532,7 +525,6 @@
             border-radius: 6px;
             font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.3s;
             font-size: 14px;
         }
 
@@ -575,7 +567,7 @@
 
             <div class="settings-tabs">
                 <button class="settings-tab active" onclick="switchTab('login')">Admin Login</button>
-                <button class="settings-tab" id="edit-tab" onclick="switchTab('edit')" style="display:none;">Edit Bio</button>
+                <button class="settings-tab" id="edit-tab" onclick="switchTab('edit')" style="display:none;">Edit Media & Bio</button>
             </div>
 
             <div id="login-tab" class="settings-tab-content active">
@@ -598,12 +590,30 @@
 
             <div id="edit-tab-content" class="settings-tab-content">
                 <div class="settings-item">
+                    <label for="settings-photo-url">Photo URL:</label>
+                    <input type="text" id="settings-photo-url" placeholder="https://ibb.co/5pm6G6m">
+                    <div class="settings-hint">Enter image URL from ImgBB or any image host</div>
+                </div>
+
+                <div class="settings-item">
+                    <label for="settings-audio-url">Audio URL:</label>
+                    <input type="text" id="settings-audio-url" placeholder="https://voca.ro/12StjOjnPdbI">
+                    <div class="settings-hint">Enter audio URL from Vocaroo or any audio host</div>
+                </div>
+
+                <div class="settings-item">
+                    <label for="settings-video-url">YouTube Video ID:</label>
+                    <input type="text" id="settings-video-url" placeholder="JKwiYQ-5cCU">
+                    <div class="settings-hint">Enter just the video ID (from youtube.com/watch?v=ID or youtu.be/ID)</div>
+                </div>
+
+                <div class="settings-item">
                     <label for="settings-bio">Your Bio:</label>
                     <textarea id="settings-bio"></textarea>
                 </div>
 
                 <div class="settings-buttons">
-                    <button class="settings-save" onclick="saveSettings()">Save Bio</button>
+                    <button class="settings-save" onclick="saveSettings()">Save All</button>
                     <button class="settings-close" onclick="closeSettings()">Close</button>
                 </div>
                 <button class="logout-btn" onclick="logout()" style="margin-top: 10px;">Logout</button>
@@ -642,7 +652,7 @@
                         <p id="bio-display"></p>
                     </div>
                     <div class="intro-photo">
-                        <img src="https://ibb.co/5pm6G6m" alt="Liz Youmans">
+                        <img id="photo-display" alt="Liz Youmans">
                     </div>
                 </div>
             </section>
@@ -673,17 +683,14 @@
             <section id="onair" class="section">
                 <h1>On Air</h1>
                 <p>Listen to my on-air work:</p>
-                <audio controls>
-                    <source src="https://voca.ro/12StjOjnPdbI" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
+                <audio id="audio-display" controls></audio>
             </section>
             
             <section id="onscreen" class="section">
                 <h1>On Screen</h1>
                 <p>Watch my video demo:</p>
                 <div class="youtube-container">
-                    <iframe src="https://www.youtube.com/embed/JKwiYQ-5cCU" title="Video Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" loading="lazy"></iframe>
+                    <iframe id="youtube-iframe" title="Video Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
                 </div>
             </section>
             
@@ -711,7 +718,11 @@
         const ADMIN_PASSWORD = '@Brenda87';
         let isLoggedIn = false;
 
-        const DEFAULT_BIO = "I'm a Digital Media professional with a background in broadcast, live production, post-production, and social media, supported by formal training in Broadcast and Cinematic Arts and hands-on experience across audio, video, and live event environments. I've worked on everything from studio-based educational content to large-scale live events, and I enjoy being involved throughout the full production process, from setup and capture to post-production and delivery. I bring a detail-oriented approach to my work, with a strong focus on technical accuracy, organized workflows, and creating media that's both polished and purposeful.\n\nBeyond technical skills, I'm known as a calm, reliable collaborator who helps keep productions running smoothly under pressure. I lead through clear communication, adaptability, and a strong sense of responsibility to both the team and the project. Whether working with editors, engineers, stage crews, or on-air talent, I prioritize efficiency, safety, and collaboration, and I'm driven by a genuine passion for multimedia production and continuous growth in the field.";
+        // HARDCODED ASSETS - Change only these values
+        const PHOTO_URL = 'https://ibb.co/5pm6G6m';
+        const AUDIO_URL = 'https://voca.ro/12StjOjnPdbI';
+        const VIDEO_ID = 'JKwiYQ-5cCU';
+        const BIO_TEXT = "I'm a Digital Media professional with a background in broadcast, live production, post-production, and social media, supported by formal training in Broadcast and Cinematic Arts and hands-on experience across audio, video, and live event environments. I've worked on everything from studio-based educational content to large-scale live events, and I enjoy being involved throughout the full production process, from setup and capture to post-production and delivery. I bring a detail-oriented approach to my work, with a strong focus on technical accuracy, organized workflows, and creating media that's both polished and purposeful.\n\nBeyond technical skills, I'm known as a calm, reliable collaborator who helps keep productions running smoothly under pressure. I lead through clear communication, adaptability, and a strong sense of responsibility to both the team and the project. Whether working with editors, engineers, stage crews, or on-air talent, I prioritize efficiency, safety, and collaboration, and I'm driven by a genuine passion for multimedia production and continuous growth in the field.";
 
         function handleLogin() {
             const email = document.getElementById('login-email').value;
@@ -724,9 +735,8 @@
 
             if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
                 isLoggedIn = true;
-                localStorage.setItem('portfolioLoggedIn', 'true');
                 
-                successDiv.textContent = 'Login successful!';
+                successDiv.textContent = 'Login successful! Note: Changes must be made directly in the code.';
                 successDiv.classList.add('show');
 
                 setTimeout(() => {
@@ -740,7 +750,6 @@
 
         function logout() {
             isLoggedIn = false;
-            localStorage.removeItem('portfolioLoggedIn');
             switchTab('login');
             document.getElementById('login-email').value = '';
             document.getElementById('login-password').value = '';
@@ -763,21 +772,39 @@
             } else if (tab === 'edit') {
                 document.getElementById('edit-tab-content').classList.add('active');
                 document.querySelectorAll('.settings-tab')[1].classList.add('active');
-                document.getElementById('settings-bio').value = localStorage.getItem('portfolioBio') || DEFAULT_BIO;
+                loadSettingsForm();
             }
         }
 
         window.addEventListener('load', function() {
-            if (localStorage.getItem('portfolioLoggedIn') === 'true') {
-                isLoggedIn = true;
-                document.getElementById('edit-tab').style.display = 'block';
-            }
-            loadBio();
+            loadAssets();
         });
 
-        function loadBio() {
-            const bio = localStorage.getItem('portfolioBio') || DEFAULT_BIO;
-            document.getElementById('bio-display').textContent = bio;
+        function loadAssets() {
+            // Load Photo
+            document.getElementById('photo-display').src = PHOTO_URL;
+
+            // Load Audio
+            const audioElement = document.getElementById('audio-display');
+            audioElement.innerHTML = '';
+            const source = document.createElement('source');
+            source.src = AUDIO_URL;
+            source.type = 'audio/mpeg';
+            audioElement.appendChild(source);
+
+            // Load Video
+            const embedUrl = `https://www.youtube.com/embed/${VIDEO_ID}`;
+            document.getElementById('youtube-iframe').src = embedUrl;
+
+            // Load Bio
+            document.getElementById('bio-display').textContent = BIO_TEXT;
+        }
+
+        function loadSettingsForm() {
+            document.getElementById('settings-photo-url').value = PHOTO_URL;
+            document.getElementById('settings-audio-url').value = AUDIO_URL;
+            document.getElementById('settings-video-url').value = VIDEO_ID;
+            document.getElementById('settings-bio').value = BIO_TEXT;
         }
 
         function openSettings() {
@@ -789,11 +816,7 @@
         }
 
         function saveSettings() {
-            const bioInput = document.getElementById('settings-bio');
-            localStorage.setItem('portfolioBio', bioInput.value);
-            loadBio();
-            closeSettings();
-            alert('Bio saved!');
+            alert('To update the assets, you need to edit the code directly.\n\nChange these values at the top of the JavaScript:\n- PHOTO_URL\n- AUDIO_URL\n- VIDEO_ID\n- BIO_TEXT');
         }
 
         function openPage(pageId) {
