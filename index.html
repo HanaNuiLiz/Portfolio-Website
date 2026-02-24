@@ -223,10 +223,10 @@ body{cursor:auto;}
 <div class="intro">
 <div>
 <h1>About Me</h1>
-<p>Detail-oriented multimedia professional experienced in broadcast operations, live production, audio engineering, and post-production editing.</p>
+<p id="bio-text">Detail-oriented multimedia professional experienced in broadcast operations, live production, audio engineering, and post-production editing.</p>
 </div>
 <div class="headshot-wrapper">
-<img src="assets/photo.jpg" class="headshot" id="headshot">
+<img id="headshot" class="headshot">
 </div>
 </div>
 </section>
@@ -234,22 +234,20 @@ body{cursor:auto;}
 <section id="work" class="section">
 <h1>Work & Resume</h1>
 <div class="card">
-<a href="assets/resume.pdf" target="_blank" class="resume-btn">Download Resume</a>
+<a id="resume-link" href="" target="_blank" class="resume-btn">Download Resume</a>
 </div>
 </section>
 
 <section id="onair" class="section wave-container">
 <h1>On Air</h1>
 <div class="wave"></div>
-<iframe width="100%" height="166" allow="autoplay"
-src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2272721219">
-</iframe>
+<audio id="audio-player" controls style="width:100%;margin-top:20px;border-radius:12px;"></audio>
 </section>
 
 <section id="onscreen" class="section">
 <h1>On Screen</h1>
 <div class="youtube-container">
-<iframe src="https://www.youtube.com/embed/JKwiYQ-5cCU" allowfullscreen></iframe>
+<iframe id="youtube-player" allowfullscreen></iframe>
 </div>
 </section>
 
@@ -266,36 +264,69 @@ src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/so
 <div id="mic-cursor"></div>
 
 <script>
+// ASSET CONFIGURATION - Change these paths to your files
+const ASSETS = {
+  photo: './photo.jpg',
+  audio: './audio.mp3',
+  resume: './resume.pdf',
+  videoId: 'JKwiYQ-5cCU',
+  bio: "Detail-oriented multimedia professional experienced in broadcast operations, live production, audio engineering, and post-production editing."
+};
+
+// Load assets on page load
+window.addEventListener('load', () => {
+  // Load photo
+  document.getElementById('headshot').src = ASSETS.photo;
+  
+  // Load audio
+  const audioPlayer = document.getElementById('audio-player');
+  const audioSource = document.createElement('source');
+  audioSource.src = ASSETS.audio;
+  audioSource.type = 'audio/mpeg';
+  audioPlayer.appendChild(audioSource);
+  
+  // Load resume link
+  document.getElementById('resume-link').href = ASSETS.resume;
+  
+  // Load YouTube video
+  document.getElementById('youtube-player').src = `https://www.youtube.com/embed/${ASSETS.videoId}`;
+  
+  // Load bio
+  document.getElementById('bio-text').textContent = ASSETS.bio;
+});
+
+// Navigation functions
 function openPage(id){
-document.getElementById("home").style.display="none";
-document.getElementById("portfolio").classList.add("active");
-switchPage(id,document.querySelector(".nav-btn"));
-}
-function switchPage(id,btn){
-document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
-document.getElementById(id).classList.add("active");
-document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));
-if(btn)btn.classList.add("active");
-window.scrollTo({top:0,behavior:"smooth"});
+  document.getElementById("home").style.display="none";
+  document.getElementById("portfolio").classList.add("active");
+  switchPage(id,document.querySelector(".nav-btn"));
 }
 
-/* Microphone Cursor */
+function switchPage(id,btn){
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));
+  if(btn)btn.classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+// Microphone Cursor
 const mic=document.getElementById("mic-cursor");
 document.addEventListener("mousemove",e=>{
-mic.style.left=e.clientX+"px";
-mic.style.top=e.clientY+"px";
+  mic.style.left=e.clientX+"px";
+  mic.style.top=e.clientY+"px";
 });
 document.querySelectorAll("button,a").forEach(el=>{
-el.addEventListener("mouseenter",()=>mic.style.transform="translate(-50%,-50%) scale(1.3)");
-el.addEventListener("mouseleave",()=>mic.style.transform="translate(-50%,-50%) scale(1)");
+  el.addEventListener("mouseenter",()=>mic.style.transform="translate(-50%,-50%) scale(1.3)");
+  el.addEventListener("mouseleave",()=>mic.style.transform="translate(-50%,-50%) scale(1)");
 });
 
-/* Parallax Headshot */
+// Parallax Headshot
 const headshot=document.getElementById("headshot");
 document.addEventListener("mousemove",e=>{
-const x=(window.innerWidth/2-e.clientX)/40;
-const y=(window.innerHeight/2-e.clientY)/40;
-headshot.style.transform=`rotateY(${x}deg) rotateX(${y}deg)`;
+  const x=(window.innerWidth/2-e.clientX)/40;
+  const y=(window.innerHeight/2-e.clientY)/40;
+  headshot.style.transform=`rotateY(${x}deg) rotateX(${y}deg)`;
 });
 </script>
 
