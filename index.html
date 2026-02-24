@@ -3,315 +3,293 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Liz Youmans | Digital Media Portfolio</title>
+<title>Liz Youmans | Multimedia Portfolio</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
 :root{
-    --primary:#5B7DBF;
-    --accent:#F28C4C;
-    --accent-dark:#B06A8C;
-    --dark:#1f1f1f;
-    --light:#f8f9fc;
+--primary:#5B7DBF;
+--accent:#F28C4C;
+--accent-dark:#B06A8C;
+--dark:#111;
+--light:#f8f9fc;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-    font-family:'Inter',sans-serif;
-    background:linear-gradient(135deg,var(--primary),#3e57a3);
-    color:#333;
-    min-height:100vh;
+font-family:'Inter',sans-serif;
+background:linear-gradient(135deg,var(--primary),#3e57a3);
+min-height:100vh;
+overflow-x:hidden;
 }
 
 /* HOME */
 #home{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
-    text-align:center;
-    padding:30px;
-    color:white;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+color:white;
+text-align:center;
+padding:40px;
+animation:fadeIn 1s ease;
 }
 
 #home h1{
-    font-size:64px;
-    font-weight:800;
-    letter-spacing:-2px;
-}
-
-#home p{
-    margin-top:10px;
-    font-size:20px;
-    opacity:.9;
+font-size:68px;
+font-weight:800;
+letter-spacing:-2px;
 }
 
 .menu-grid{
-    margin-top:50px;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:20px;
-    max-width:800px;
-    width:100%;
+margin-top:50px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:20px;
+width:100%;
+max-width:800px;
 }
 
 .menu-btn{
-    background:var(--accent);
-    padding:18px;
-    border:none;
-    border-radius:12px;
-    font-weight:600;
-    color:white;
-    cursor:pointer;
-    transition:.3s;
-    box-shadow:0 6px 14px rgba(0,0,0,.2);
+background:var(--accent);
+border:none;
+padding:18px;
+border-radius:14px;
+color:white;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+box-shadow:0 8px 20px rgba(0,0,0,.2);
 }
 
 .menu-btn:hover{
-    background:var(--accent-dark);
-    transform:translateY(-4px);
+transform:translateY(-6px);
+background:var(--accent-dark);
+box-shadow:0 12px 30px rgba(0,0,0,.3);
 }
 
-/* PORTFOLIO LAYOUT */
-#portfolio{display:none;min-height:100vh;background:var(--light);}
-#portfolio.active{display:flex;}
+/* PORTFOLIO */
+#portfolio{
+display:none;
+min-height:100vh;
+background:var(--light);
+}
+
+#portfolio.active{
+display:flex;
+animation:fadeIn .6s ease;
+}
 
 #sidebar{
-    width:220px;
-    background:#111;
-    padding:25px 20px;
-    color:white;
-}
-
-#sidebar h3{
-    margin-bottom:20px;
-    font-weight:600;
+width:230px;
+background:#111;
+padding:30px 20px;
+color:white;
 }
 
 .nav-btn{
-    display:block;
-    width:100%;
-    padding:12px;
-    margin-bottom:10px;
-    background:#222;
-    border:none;
-    color:white;
-    border-radius:8px;
-    cursor:pointer;
-    text-align:left;
-    transition:.3s;
+display:block;
+width:100%;
+padding:12px;
+margin-bottom:12px;
+background:#1f1f1f;
+border:none;
+color:white;
+border-radius:10px;
+cursor:pointer;
+transition:.3s;
 }
 
-.nav-btn:hover,.nav-btn.active{
-    background:var(--accent);
+.nav-btn:hover,
+.nav-btn.active{
+background:var(--accent);
 }
 
 #main{
-    flex:1;
-    padding:60px;
+flex:1;
+padding:60px;
+position:relative;
+overflow:hidden;
 }
 
-.section{display:none;animation:fade .4s ease;}
-.section.active{display:block;}
+/* ANIMATED SECTIONS */
+.section{
+position:absolute;
+width:100%;
+opacity:0;
+transform:translateX(40px);
+transition:all .5s ease;
+}
 
-@keyframes fade{
-from{opacity:0;transform:translateY(10px);}
-to{opacity:1;transform:translateY(0);}
+.section.active{
+opacity:1;
+transform:translateX(0);
+position:relative;
 }
 
 h1{
-    font-size:36px;
-    color:var(--primary);
-    margin-bottom:20px;
+font-size:36px;
+color:var(--primary);
+margin-bottom:25px;
 }
 
-p{
-    line-height:1.8;
-    margin-bottom:15px;
+.card{
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:0 12px 30px rgba(0,0,0,.08);
+margin-bottom:30px;
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-6px);
+box-shadow:0 16px 40px rgba(0,0,0,.12);
 }
 
 /* INTRO */
 .intro{
-    display:flex;
-    flex-wrap:wrap;
-    gap:40px;
-    align-items:center;
+display:flex;
+flex-wrap:wrap;
+gap:50px;
+align-items:center;
 }
 
 .intro img{
-    width:260px;
-    border-radius:20px;
-    box-shadow:0 12px 30px rgba(0,0,0,.2);
+width:280px;
+border-radius:24px;
+box-shadow:0 20px 50px rgba(0,0,0,.25);
+transition:.4s;
 }
 
-/* WORK */
-.card{
-    background:white;
-    padding:30px;
-    border-radius:16px;
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
-    margin-bottom:30px;
+.intro img:hover{
+transform:scale(1.03);
 }
 
+/* RESUME BUTTON */
 .resume-btn{
-    display:inline-block;
-    padding:14px 28px;
-    background:var(--accent);
-    color:white;
-    border-radius:10px;
-    text-decoration:none;
-    font-weight:600;
-    margin-top:10px;
-    transition:.3s;
+display:inline-block;
+padding:14px 30px;
+background:var(--accent);
+color:white;
+border-radius:12px;
+text-decoration:none;
+font-weight:600;
+transition:.3s;
 }
 
 .resume-btn:hover{
-    background:var(--accent-dark);
+background:var(--accent-dark);
+transform:translateY(-4px);
 }
 
 /* MEDIA */
 .youtube-container{
-    position:relative;
-    padding-bottom:56.25%;
-    height:0;
-    overflow:hidden;
-    border-radius:20px;
-    box-shadow:0 12px 30px rgba(0,0,0,.2);
+position:relative;
+padding-bottom:56.25%;
+height:0;
+overflow:hidden;
+border-radius:24px;
+box-shadow:0 20px 50px rgba(0,0,0,.2);
 }
 
 .youtube-container iframe{
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    border:0;
+position:absolute;
+top:0;left:0;width:100%;height:100%;border:0;
+}
+
+iframe{
+border-radius:20px;
 }
 
 /* CONTACT */
 .contact-card{
-    background:var(--primary);
-    padding:40px;
-    border-radius:20px;
-    color:white;
-    max-width:600px;
+background:var(--primary);
+color:white;
+padding:40px;
+border-radius:24px;
+max-width:600px;
 }
 
-.contact-card a{
-    color:var(--accent);
-    font-weight:600;
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
 }
 
-/* MOBILE */
 @media(max-width:900px){
 #portfolio{flex-direction:column;}
 #sidebar{width:100%;display:flex;overflow-x:auto;}
 #main{padding:30px;}
+.section{position:relative;}
 }
 </style>
 </head>
 
 <body>
 
-<!-- HOME -->
 <div id="home">
-    <h1>Liz Youmans</h1>
-    <p>Digital Media Professional</p>
-
-    <div class="menu-grid">
-        <button class="menu-btn" onclick="openPage('intro')">Intro</button>
-        <button class="menu-btn" onclick="openPage('work')">Work</button>
-        <button class="menu-btn" onclick="openPage('onair')">On Air</button>
-        <button class="menu-btn" onclick="openPage('onscreen')">On Screen</button>
-        <button class="menu-btn" onclick="openPage('contact')">Contact</button>
-    </div>
+<h1>Liz Youmans</h1>
+<p>Multimedia Professional</p>
+<div class="menu-grid">
+<button class="menu-btn" onclick="openPage('intro')">Intro</button>
+<button class="menu-btn" onclick="openPage('work')">Work</button>
+<button class="menu-btn" onclick="openPage('onair')">On Air</button>
+<button class="menu-btn" onclick="openPage('onscreen')">On Screen</button>
+<button class="menu-btn" onclick="openPage('contact')">Contact</button>
+</div>
 </div>
 
-<!-- PORTFOLIO -->
 <div id="portfolio">
-
 <div id="sidebar">
-    <h3>Portfolio</h3>
-    <button class="nav-btn active" onclick="switchPage('intro',this)">Intro</button>
-    <button class="nav-btn" onclick="switchPage('work',this)">Work</button>
-    <button class="nav-btn" onclick="switchPage('onair',this)">On Air</button>
-    <button class="nav-btn" onclick="switchPage('onscreen',this)">On Screen</button>
-    <button class="nav-btn" onclick="switchPage('contact',this)">Contact</button>
+<button class="nav-btn active" onclick="switchPage('intro',this)">Intro</button>
+<button class="nav-btn" onclick="switchPage('work',this)">Work</button>
+<button class="nav-btn" onclick="switchPage('onair',this)">On Air</button>
+<button class="nav-btn" onclick="switchPage('onscreen',this)">On Screen</button>
+<button class="nav-btn" onclick="switchPage('contact',this)">Contact</button>
 </div>
 
 <div id="main">
 
-<!-- INTRO -->
 <section id="intro" class="section active">
 <div class="intro">
 <div>
 <h1>About Me</h1>
-<p>I’m a Digital Media professional with experience across broadcast, live production, post-production, and multimedia storytelling. I thrive in fast-paced environments and bring strong technical precision paired with creative adaptability.</p>
-<p>I’m known for reliability, calm leadership under pressure, and a strong commitment to polished, purposeful content.</p>
+<p>Detail-oriented multimedia professional experienced in broadcast operations, live production, audio engineering, and post-production editing.</p>
+<p>I bring technical precision, collaborative leadership, and calm execution to high-pressure production environments.</p>
 </div>
-
 <img src="assets/photo.jpg" alt="Liz Youmans">
 </div>
 </section>
 
-<!-- WORK -->
 <section id="work" class="section">
-<h1>Work & Skills</h1>
-
+<h1>Work & Resume</h1>
 <div class="card">
-<h2>Resume</h2>
 <a href="assets/resume.pdf" target="_blank" class="resume-btn">Download Resume</a>
-</div>
-
-<div class="card">
-<h2>Key Skills</h2>
-<ul>
-<li>Broadcast & Live Production</li>
-<li>Audio Engineering</li>
-<li>Post-Production Editing</li>
-<li>Multimedia Content Creation</li>
-<li>Technical Troubleshooting</li>
-<li>Production Leadership</li>
-</ul>
 </div>
 </section>
 
-<!-- ON AIR -->
 <section id="onair" class="section">
 <h1>On Air</h1>
-
-<iframe 
-width="100%" 
-height="166" 
-scrolling="no" 
-frameborder="no" 
-allow="autoplay"
+<iframe width="100%" height="166" allow="autoplay"
 src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2272721219">
 </iframe>
 </section>
 
-<!-- ON SCREEN -->
 <section id="onscreen" class="section">
 <h1>On Screen</h1>
-
 <div class="youtube-container">
-<iframe 
-src="https://www.youtube.com/embed/JKwiYQ-5cCU"
-allowfullscreen>
-</iframe>
+<iframe src="https://www.youtube.com/embed/JKwiYQ-5cCU" allowfullscreen></iframe>
 </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact" class="section">
 <h1>Contact</h1>
-
 <div class="contact-card">
-<p>Email: <a href="mailto:Hananuiliz@gmail.com">Hananuiliz@gmail.com</a></p>
-<p>Available for broadcast, live event production, post-production, and multimedia collaborations.</p>
+<p>Email: <strong>Hananuiliz@gmail.com</strong></p>
+<p>Available for live production, audio engineering, broadcast, and multimedia collaboration.</p>
 </div>
 </section>
 
@@ -322,7 +300,7 @@ allowfullscreen>
 function openPage(id){
 document.getElementById("home").style.display="none";
 document.getElementById("portfolio").classList.add("active");
-switchPage(id,document.querySelector('.nav-btn'));
+switchPage(id,document.querySelector(".nav-btn"));
 }
 
 function switchPage(id,btn){
