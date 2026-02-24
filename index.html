@@ -1,870 +1,338 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liz Youmans - Portfolio</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #5B7DBF 0%, #4a5fa8 100%);
-            color: #333;
-            min-height: 100vh;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liz Youmans | Digital Media Portfolio</title>
 
-        #home {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        #home.hidden {
-            display: none;
-        }
-        
-        #home h1 {
-            font-size: 60px;
-            color: white;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-        }
-        
-        #home p {
-            font-size: 18px;
-            color: rgba(255,255,255,0.9);
-            margin-bottom: 50px;
-        }
-        
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            max-width: 800px;
-        }
-        
-        .menu-btn {
-            background-color: #F28C4C;
-            color: white;
-            padding: 20px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        
-        .menu-btn:hover {
-            background-color: #B06A8C;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-        }
-        
-        #portfolio {
-            display: none;
-            flex-wrap: wrap;
-            min-height: 100vh;
-        }
-        
-        #portfolio.active {
-            display: flex;
-        }
-        
-        #sidebar {
-            width: 220px;
-            background-color: rgba(0,0,0,0.1);
-            padding: 20px;
-            overflow-y: auto;
-        }
-        
-        #back-btn {
-            width: 100%;
-            padding: 12px;
-            background-color: #333;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-bottom: 15px;
-            transition: background-color 0.3s;
-        }
-        
-        #back-btn:hover {
-            background-color: #555;
-        }
-        
-        .nav-btn {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 8px;
-            background-color: #F28C4C;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s;
-            text-align: left;
-        }
-        
-        .nav-btn:hover,
-        .nav-btn.active {
-            background-color: #B06A8C;
-        }
-        
-        #main-content {
-            flex: 1;
-            padding: 30px 40px;
-            overflow-y: auto;
-            background-color: white;
-            margin: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        
-        .section {
-            display: none;
-        }
-        
-        .section.active {
-            display: block;
-            animation: fadeIn 0.3s ease-in;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .intro-container {
-            display: flex;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .intro-text {
-            flex: 1;
-        }
-        
-        .intro-photo {
-            flex: 0 0 250px;
-            text-align: right;
-        }
-        
-        .intro-photo img {
-            border-radius: 12px;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-            width: 100%;
-            max-width: 250px;
-        }
-        
-        h1, h2 {
-            color: #5B7DBF;
-            margin-bottom: 15px;
-            margin-top: 20px;
-        }
-        
-        h1 {
-            font-size: 36px;
-        }
-        
-        h2 {
-            font-size: 24px;
-        }
-        
-        p {
-            line-height: 1.8;
-            color: #555;
-            margin-bottom: 15px;
-        }
-        
-        .work-container {
-            display: flex;
-            gap: 30px;
-        }
-        
-        .work-section {
-            flex: 1;
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #F28C4C;
-        }
-        
-        .work-section ul {
-            margin-left: 20px;
-            line-height: 2;
-        }
-        
-        .work-section li {
-            color: #555;
-        }
-        
-        .resume-link {
-            display: inline-block;
-            padding: 12px 24px;
-            background-color: #F28C4C;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-            margin: 15px 0;
-            transition: background-color 0.3s;
-        }
-        
-        .resume-link:hover {
-            background-color: #B06A8C;
-        }
-        
-        audio {
-            width: 100%;
-            max-width: 600px;
-            border-radius: 8px;
-            margin: 20px 0;
-            background-color: #000;
-        }
-        
-        .youtube-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            margin: 20px 0;
-            border-radius: 8px;
-        }
-        
-        .youtube-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 8px;
-        }
-        
-        #contact-form {
-            background-color: #B06A8C;
-            padding: 30px;
-            border-radius: 8px;
-            max-width: 600px;
-            color: white;
-        }
-        
-        #contact-form h2 {
-            color: white;
-        }
-        
-        #contact-form input,
-        #contact-form textarea {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: none;
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 14px;
-        }
-        
-        #contact-form textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-        
-        .submit-btn {
-            width: 100%;
-            padding: 12px;
-            background-color: #F28C4C;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .submit-btn:hover {
-            background-color: #333;
-        }
-        
-        #scroll-top {
-            display: none;
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background-color: #F28C4C;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 999;
-            transition: background-color 0.3s;
-        }
-        
-        #scroll-top:hover {
-            background-color: #B06A8C;
-        }
-        
-        #scroll-top.show {
-            display: block;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
-        #settings-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #333;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            z-index: 1000;
-            transition: background-color 0.3s;
-        }
+<style>
+:root{
+    --primary:#5B7DBF;
+    --accent:#F28C4C;
+    --accent-dark:#B06A8C;
+    --dark:#1f1f1f;
+    --light:#f8f9fc;
+}
 
-        #settings-btn:hover {
-            background-color: #555;
-        }
+*{margin:0;padding:0;box-sizing:border-box;}
 
-        #settings-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.7);
-            z-index: 1001;
-            align-items: center;
-            justify-content: center;
-        }
+body{
+    font-family:'Inter',sans-serif;
+    background:linear-gradient(135deg,var(--primary),#3e57a3);
+    color:#333;
+    min-height:100vh;
+}
 
-        #settings-modal.show {
-            display: flex;
-        }
+/* HOME */
+#home{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    text-align:center;
+    padding:30px;
+    color:white;
+}
 
-        .settings-content {
-            background-color: white;
-            padding: 30px;
-            border-radius: 12px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
+#home h1{
+    font-size:64px;
+    font-weight:800;
+    letter-spacing:-2px;
+}
 
-        .settings-content h2 {
-            color: #5B7DBF;
-            margin-bottom: 20px;
-        }
+#home p{
+    margin-top:10px;
+    font-size:20px;
+    opacity:.9;
+}
 
-        .settings-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #ddd;
-        }
+.menu-grid{
+    margin-top:50px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:20px;
+    max-width:800px;
+    width:100%;
+}
 
-        .settings-tab {
-            padding: 10px 15px;
-            background: none;
-            border: none;
-            color: #5B7DBF;
-            font-weight: bold;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
-        }
+.menu-btn{
+    background:var(--accent);
+    padding:18px;
+    border:none;
+    border-radius:12px;
+    font-weight:600;
+    color:white;
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 6px 14px rgba(0,0,0,.2);
+}
 
-        .settings-tab.active {
-            border-bottom-color: #F28C4C;
-            color: #F28C4C;
-        }
+.menu-btn:hover{
+    background:var(--accent-dark);
+    transform:translateY(-4px);
+}
 
-        .settings-tab-content {
-            display: none;
-        }
+/* PORTFOLIO LAYOUT */
+#portfolio{display:none;min-height:100vh;background:var(--light);}
+#portfolio.active{display:flex;}
 
-        .settings-tab-content.active {
-            display: block;
-        }
+#sidebar{
+    width:220px;
+    background:#111;
+    padding:25px 20px;
+    color:white;
+}
 
-        .login-item {
-            margin-bottom: 20px;
-        }
+#sidebar h3{
+    margin-bottom:20px;
+    font-weight:600;
+}
 
-        .login-item label {
-            display: block;
-            font-weight: bold;
-            color: #5B7DBF;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
+.nav-btn{
+    display:block;
+    width:100%;
+    padding:12px;
+    margin-bottom:10px;
+    background:#222;
+    border:none;
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+    text-align:left;
+    transition:.3s;
+}
 
-        .login-item input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            font-size: 14px;
-        }
+.nav-btn:hover,.nav-btn.active{
+    background:var(--accent);
+}
 
-        .login-error {
-            color: #721c24;
-            background-color: #f8d7da;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            display: none;
-        }
+#main{
+    flex:1;
+    padding:60px;
+}
 
-        .login-error.show {
-            display: block;
-        }
+.section{display:none;animation:fade .4s ease;}
+.section.active{display:block;}
 
-        .login-success {
-            color: #155724;
-            background-color: #d4edda;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            display: none;
-        }
+@keyframes fade{
+from{opacity:0;transform:translateY(10px);}
+to{opacity:1;transform:translateY(0);}
+}
 
-        .login-success.show {
-            display: block;
-        }
+h1{
+    font-size:36px;
+    color:var(--primary);
+    margin-bottom:20px;
+}
 
-        .login-btn {
-            width: 100%;
-            padding: 12px;
-            background-color: #F28C4C;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-        }
+p{
+    line-height:1.8;
+    margin-bottom:15px;
+}
 
-        .login-btn:hover {
-            background-color: #B06A8C;
-        }
+/* INTRO */
+.intro{
+    display:flex;
+    flex-wrap:wrap;
+    gap:40px;
+    align-items:center;
+}
 
-        .settings-item {
-            margin-bottom: 20px;
-        }
+.intro img{
+    width:260px;
+    border-radius:20px;
+    box-shadow:0 12px 30px rgba(0,0,0,.2);
+}
 
-        .settings-item label {
-            display: block;
-            font-weight: bold;
-            color: #5B7DBF;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
+/* WORK */
+.card{
+    background:white;
+    padding:30px;
+    border-radius:16px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    margin-bottom:30px;
+}
 
-        .settings-item input[type="text"],
-        .settings-item textarea {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 14px;
-            transition: border-color 0.3s;
-        }
+.resume-btn{
+    display:inline-block;
+    padding:14px 28px;
+    background:var(--accent);
+    color:white;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:600;
+    margin-top:10px;
+    transition:.3s;
+}
 
-        .settings-item input[type="text"]:focus,
-        .settings-item textarea:focus {
-            border-color: #F28C4C;
-            outline: none;
-        }
+.resume-btn:hover{
+    background:var(--accent-dark);
+}
 
-        .settings-item textarea {
-            resize: vertical;
-            min-height: 100px;
-            max-height: 150px;
-        }
+/* MEDIA */
+.youtube-container{
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+    overflow:hidden;
+    border-radius:20px;
+    box-shadow:0 12px 30px rgba(0,0,0,.2);
+}
 
-        .settings-hint {
-            font-size: 12px;
-            color: #999;
-            margin-top: 5px;
-        }
+.youtube-container iframe{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    border:0;
+}
 
-        .settings-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
+/* CONTACT */
+.contact-card{
+    background:var(--primary);
+    padding:40px;
+    border-radius:20px;
+    color:white;
+    max-width:600px;
+}
 
-        .settings-save, .settings-close, .logout-btn {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 14px;
-        }
+.contact-card a{
+    color:var(--accent);
+    font-weight:600;
+}
 
-        .settings-save {
-            background-color: #F28C4C;
-            color: white;
-        }
-
-        .settings-save:hover {
-            background-color: #B06A8C;
-        }
-
-        .settings-close {
-            background-color: #ddd;
-            color: #333;
-        }
-
-        .settings-close:hover {
-            background-color: #ccc;
-        }
-
-        .logout-btn {
-            background-color: #dc3545;
-            color: white;
-            width: 100%;
-        }
-
-        .logout-btn:hover {
-            background-color: #c82333;
-        }
-
-        #audio-container {
-            width: 100%;
-            max-width: 600px;
-        }
-    </style>
+/* MOBILE */
+@media(max-width:900px){
+#portfolio{flex-direction:column;}
+#sidebar{width:100%;display:flex;overflow-x:auto;}
+#main{padding:30px;}
+}
+</style>
 </head>
+
 <body>
 
-    <button id="settings-btn" onclick="openSettings()">⚙️ Settings</button>
+<!-- HOME -->
+<div id="home">
+    <h1>Liz Youmans</h1>
+    <p>Digital Media Professional</p>
 
-    <div id="settings-modal">
-        <div class="settings-content">
-            <h2>Portfolio Settings</h2>
-
-            <div class="settings-tabs">
-                <button class="settings-tab active" onclick="switchTab('login')">Admin Login</button>
-                <button class="settings-tab" id="edit-tab" onclick="switchTab('edit')" style="display:none;">Edit Media & Bio</button>
-            </div>
-
-            <div id="login-tab" class="settings-tab-content active">
-                <div class="login-error" id="login-error"></div>
-                <div class="login-success" id="login-success"></div>
-
-                <div class="login-item">
-                    <label for="login-email">Email:</label>
-                    <input type="text" id="login-email" placeholder="Enter your email">
-                </div>
-                
-                <div class="login-item">
-                    <label for="login-password">Password:</label>
-                    <input type="password" id="login-password" placeholder="Enter your password">
-                </div>
-                
-                <button class="login-btn" onclick="handleLogin()">Login</button>
-                <button class="settings-close" onclick="closeSettings()" style="width:100%; margin-top:10px;">Close</button>
-            </div>
-
-            <div id="edit-tab-content" class="settings-tab-content">
-                <div class="settings-item">
-                    <label for="settings-photo-url">Photo URL:</label>
-                    <input type="text" id="settings-photo-url" placeholder="https://example.com/photo.jpg">
-                    <div class="settings-hint">Enter direct image URL</div>
-                </div>
-
-                <div class="settings-item">
-                    <label for="settings-audio-url">Audio URL:</label>
-                    <input type="text" id="settings-audio-url" placeholder="https://example.com/audio.mp3">
-                    <div class="settings-hint">Enter direct audio URL</div>
-                </div>
-
-                <div class="settings-item">
-                    <label for="settings-video-url">YouTube Video ID:</label>
-                    <input type="text" id="settings-video-url" placeholder="JKwiYQ-5cCU">
-                    <div class="settings-hint">Enter just the video ID</div>
-                </div>
-
-                <div class="settings-item">
-                    <label for="settings-bio">Your Bio:</label>
-                    <textarea id="settings-bio"></textarea>
-                </div>
-
-                <div class="settings-buttons">
-                    <button class="settings-save" onclick="saveSettings()">Save All</button>
-                    <button class="settings-close" onclick="closeSettings()">Close</button>
-                </div>
-                <button class="logout-btn" onclick="logout()" style="margin-top: 10px;">Logout</button>
-            </div>
-        </div>
+    <div class="menu-grid">
+        <button class="menu-btn" onclick="openPage('intro')">Intro</button>
+        <button class="menu-btn" onclick="openPage('work')">Work</button>
+        <button class="menu-btn" onclick="openPage('onair')">On Air</button>
+        <button class="menu-btn" onclick="openPage('onscreen')">On Screen</button>
+        <button class="menu-btn" onclick="openPage('contact')">Contact</button>
     </div>
-    
-    <div id="home">
-        <h1>Liz Youmans</h1>
-        <p>Digital Media Professional</p>
-        <div class="menu-grid">
-            <button class="menu-btn" onclick="openPage('intro')">1. Intro</button>
-            <button class="menu-btn" onclick="openPage('work')">2. Work History</button>
-            <button class="menu-btn" onclick="openPage('onair')">3. On Air</button>
-            <button class="menu-btn" onclick="openPage('onscreen')">4. On Screen</button>
-            <button class="menu-btn" onclick="openPage('contact')">5. Contact</button>
-        </div>
-    </div>
-    
-    <div id="portfolio">
-        <div id="sidebar">
-            <button id="back-btn" onclick="goHome()">← Home</button>
-            <button class="nav-btn active" onclick="switchPage('intro')">1. Intro</button>
-            <button class="nav-btn" onclick="switchPage('work')">2. Work History</button>
-            <button class="nav-btn" onclick="switchPage('onair')">3. On Air</button>
-            <button class="nav-btn" onclick="switchPage('onscreen')">4. On Screen</button>
-            <button class="nav-btn" onclick="switchPage('contact')">5. Contact</button>
-        </div>
-        
-        <div id="main-content">
-            
-            <section id="intro" class="section active">
-                <div class="intro-container">
-                    <div class="intro-text">
-                        <h1>Liz Youmans</h1>
-                        <p id="bio-display"></p>
-                    </div>
-                    <div class="intro-photo">
-                        <img id="photo-display" alt="Liz Youmans">
-                    </div>
-                </div>
-            </section>
-            
-            <section id="work" class="section">
-                <h1>Work History</h1>
-                <div class="work-container">
-                    <div class="work-section">
-                        <h2>Resume</h2>
-                        <p>View my complete multimedia resume:</p>
-                        <a href="file:///Volumes/Extended%20HD/Resumes/MultiMedia%20Resume%202026.pdf" target="_blank" class="resume-link">📄 Download Resume</a>
-                    </div>
-                    <div class="work-section">
-                        <h2>Key Skills</h2>
-                        <ul>
-                            <li>Digital Media Production</li>
-                            <li>Broadcast & Live Production</li>
-                            <li>Post-Production & Editing</li>
-                            <li>Audio & Video Engineering</li>
-                            <li>Social Media Management</li>
-                            <li>Live Event Production</li>
-                            <li>Broadcast & Cinematic Arts</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="onair" class="section">
-                <h1>On Air</h1>
-                <p>Listen to my on-air work:</p>
-                <div id="audio-container"></div>
-            </section>
-            
-            <section id="onscreen" class="section">
-                <h1>On Screen</h1>
-                <p>Watch my video demo:</p>
-                <div class="youtube-container">
-                    <iframe id="youtube-iframe" title="Video Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-                </div>
-            </section>
-            
-            <section id="contact" class="section">
-                <h1>Contact Me</h1>
-                <p>Email: <a href="mailto:Hananuiliz@gmail.com" style="color: #F28C4C; font-weight: bold;">Hananuiliz@gmail.com</a></p>
-                
-                <form id="contact-form" action="https://formspree.io/f/mjgerodl" method="POST">
-                    <h2>Send a Message</h2>
-                    <input type="text" name="name" placeholder="Your Name" required>
-                    <input type="email" name="email" placeholder="Your Email" required>
-                    <input type="text" name="subject" placeholder="Subject" required>
-                    <textarea name="message" placeholder="Your message..." required></textarea>
-                    <button type="submit" class="submit-btn">Send Message</button>
-                </form>
-            </section>
-            
-        </div>
-    </div>
-    
-    <button id="scroll-top" onclick="scrollToTop()">↑</button>
-    
-    <script>
-        const ADMIN_EMAIL = 'hananuiliz@gmail.com';
-        const ADMIN_PASSWORD = '@Brenda87';
-        let isLoggedIn = false;
+</div>
 
-        // HARDCODED ASSETS - Change only these values
-        const PHOTO_URL = 'https://i.ibb.co/JqXXXXX/photo.jpg';
-        const AUDIO_URL = 'https://cdn.soundcloud.com/media/audio.mp3';
-        const VIDEO_ID = 'JKwiYQ-5cCU';
-        const BIO_TEXT = "I'm a Digital Media professional with a background in broadcast, live production, post-production, and social media, supported by formal training in Broadcast and Cinematic Arts and hands-on experience across audio, video, and live event environments. I've worked on everything from studio-based educational content to large-scale live events, and I enjoy being involved throughout the full production process, from setup and capture to post-production and delivery. I bring a detail-oriented approach to my work, with a strong focus on technical accuracy, organized workflows, and creating media that's both polished and purposeful.\n\nBeyond technical skills, I'm known as a calm, reliable collaborator who helps keep productions running smoothly under pressure. I lead through clear communication, adaptability, and a strong sense of responsibility to both the team and the project. Whether working with editors, engineers, stage crews, or on-air talent, I prioritize efficiency, safety, and collaboration, and I'm driven by a genuine passion for multimedia production and continuous growth in the field.";
+<!-- PORTFOLIO -->
+<div id="portfolio">
 
-        function handleLogin() {
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            const errorDiv = document.getElementById('login-error');
-            const successDiv = document.getElementById('login-success');
+<div id="sidebar">
+    <h3>Portfolio</h3>
+    <button class="nav-btn active" onclick="switchPage('intro',this)">Intro</button>
+    <button class="nav-btn" onclick="switchPage('work',this)">Work</button>
+    <button class="nav-btn" onclick="switchPage('onair',this)">On Air</button>
+    <button class="nav-btn" onclick="switchPage('onscreen',this)">On Screen</button>
+    <button class="nav-btn" onclick="switchPage('contact',this)">Contact</button>
+</div>
 
-            errorDiv.classList.remove('show');
-            successDiv.classList.remove('show');
+<div id="main">
 
-            if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
-                isLoggedIn = true;
-                
-                successDiv.textContent = 'Login successful! To update assets, edit the code values at the top and redeploy.';
-                successDiv.classList.add('show');
+<!-- INTRO -->
+<section id="intro" class="section active">
+<div class="intro">
+<div>
+<h1>About Me</h1>
+<p>I’m a Digital Media professional with experience across broadcast, live production, post-production, and multimedia storytelling. I thrive in fast-paced environments and bring strong technical precision paired with creative adaptability.</p>
+<p>I’m known for reliability, calm leadership under pressure, and a strong commitment to polished, purposeful content.</p>
+</div>
 
-                setTimeout(() => {
-                    switchTab('edit');
-                }, 500);
-            } else {
-                errorDiv.textContent = 'Invalid email or password';
-                errorDiv.classList.add('show');
-            }
-        }
+<img src="assets/photo.jpg" alt="Liz Youmans">
+</div>
+</section>
 
-        function logout() {
-            isLoggedIn = false;
-            switchTab('login');
-            document.getElementById('login-email').value = '';
-            document.getElementById('login-password').value = '';
-        }
+<!-- WORK -->
+<section id="work" class="section">
+<h1>Work & Skills</h1>
 
-        function switchTab(tab) {
-            if (tab === 'edit' && !isLoggedIn) {
-                alert('Please login first');
-                return;
-            }
+<div class="card">
+<h2>Resume</h2>
+<a href="assets/resume.pdf" target="_blank" class="resume-btn">Download Resume</a>
+</div>
 
-            document.getElementById('login-tab').classList.remove('active');
-            document.getElementById('edit-tab-content').classList.remove('active');
-            
-            document.querySelectorAll('.settings-tab').forEach(t => t.classList.remove('active'));
+<div class="card">
+<h2>Key Skills</h2>
+<ul>
+<li>Broadcast & Live Production</li>
+<li>Audio Engineering</li>
+<li>Post-Production Editing</li>
+<li>Multimedia Content Creation</li>
+<li>Technical Troubleshooting</li>
+<li>Production Leadership</li>
+</ul>
+</div>
+</section>
 
-            if (tab === 'login') {
-                document.getElementById('login-tab').classList.add('active');
-                document.querySelectorAll('.settings-tab')[0].classList.add('active');
-            } else if (tab === 'edit') {
-                document.getElementById('edit-tab-content').classList.add('active');
-                document.querySelectorAll('.settings-tab')[1].classList.add('active');
-                loadSettingsForm();
-            }
-        }
+<!-- ON AIR -->
+<section id="onair" class="section">
+<h1>On Air</h1>
 
-        window.addEventListener('load', function() {
-            loadAssets();
-        });
+<iframe 
+width="100%" 
+height="166" 
+scrolling="no" 
+frameborder="no" 
+allow="autoplay"
+src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2272721219">
+</iframe>
+</section>
 
-        function loadAssets() {
-            // Load Photo
-            document.getElementById('photo-display').src = PHOTO_URL;
+<!-- ON SCREEN -->
+<section id="onscreen" class="section">
+<h1>On Screen</h1>
 
-            // Load Audio
-            const audioContainer = document.getElementById('audio-container');
-            audioContainer.innerHTML = `<audio controls style="width: 100%; max-width: 600px;"><source src="${AUDIO_URL}" type="audio/mpeg">Your browser does not support the audio element.</audio>`;
+<div class="youtube-container">
+<iframe 
+src="https://www.youtube.com/embed/JKwiYQ-5cCU"
+allowfullscreen>
+</iframe>
+</div>
+</section>
 
-            // Load Video
-            const embedUrl = `https://www.youtube.com/embed/${VIDEO_ID}`;
-            document.getElementById('youtube-iframe').src = embedUrl;
+<!-- CONTACT -->
+<section id="contact" class="section">
+<h1>Contact</h1>
 
-            // Load Bio
-            document.getElementById('bio-display').textContent = BIO_TEXT;
-        }
+<div class="contact-card">
+<p>Email: <a href="mailto:Hananuiliz@gmail.com">Hananuiliz@gmail.com</a></p>
+<p>Available for broadcast, live event production, post-production, and multimedia collaborations.</p>
+</div>
+</section>
 
-        function loadSettingsForm() {
-            document.getElementById('settings-photo-url').value = PHOTO_URL;
-            document.getElementById('settings-audio-url').value = AUDIO_URL;
-            document.getElementById('settings-video-url').value = VIDEO_ID;
-            document.getElementById('settings-bio').value = BIO_TEXT;
-        }
+</div>
+</div>
 
-        function openSettings() {
-            document.getElementById('settings-modal').classList.add('show');
-        }
+<script>
+function openPage(id){
+document.getElementById("home").style.display="none";
+document.getElementById("portfolio").classList.add("active");
+switchPage(id,document.querySelector('.nav-btn'));
+}
 
-        function closeSettings() {
-            document.getElementById('settings-modal').classList.remove('show');
-        }
+function switchPage(id,btn){
+document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));
+if(btn)btn.classList.add("active");
+window.scrollTo({top:0,behavior:"smooth"});
+}
+</script>
 
-        function saveSettings() {
-            alert('To update assets:\n\n1. Edit these values at the top of the code:\n   • PHOTO_URL\n   • AUDIO_URL\n   • VIDEO_ID\n   • BIO_TEXT\n\n2. Save the file\n3. Re-upload to GitHub\n\nChanges appear instantly everywhere!');
-        }
-
-        function openPage(pageId) {
-            document.getElementById('home').classList.add('hidden');
-            document.getElementById('portfolio').classList.add('active');
-            switchPage(pageId);
-        }
-        
-        function switchPage(pageId) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            
-            document.getElementById(pageId).classList.add('active');
-            event.target.classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        
-        function goHome() {
-            document.getElementById('portfolio').classList.remove('active');
-            document.getElementById('home').classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        
-        window.addEventListener('scroll', () => {
-            const btn = document.getElementById('scroll-top');
-            if (window.pageYOffset > 300) {
-                btn.classList.add('show');
-            } else {
-                btn.classList.remove('show');
-            }
-        });
-
-        document.getElementById('settings-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeSettings();
-            }
-        });
-
-        document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && !isLoggedIn) {
-                handleLogin();
-            }
-        });
-    </script>
 </body>
 </html>
