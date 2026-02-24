@@ -50,19 +50,19 @@ animation:fadeIn 1s ease;
 #home h1{font-size:68px;font-weight:800;letter-spacing:-2px;margin-bottom:10px;}
 #home p{font-size:20px;opacity:0.9;margin-bottom:30px;}
 
-/* Animated tagline */
+/* Animated tagline - Smooth, slow, continual loop */
 .tagline{
 height:30px;overflow:hidden;position:relative;margin-bottom:40px;
 }
 .tagline-text{
-animation:slideUp 8s infinite;
+animation:smoothContinualScroll 16s linear infinite;
 }
-@keyframes slideUp{
+@keyframes smoothContinualScroll{
 0%{transform:translateY(0);}
 25%{transform:translateY(-30px);}
 50%{transform:translateY(-60px);}
 75%{transform:translateY(-90px);}
-100%{transform:translateY(-90px);}
+100%{transform:translateY(-120px);}
 }
 
 .menu-grid{
@@ -90,6 +90,16 @@ box-shadow:0 12px 30px rgba(0,0,0,.3);
 width:230px;background:#111;padding:30px 20px;color:white;
 position:sticky;top:0;height:100vh;overflow-y:auto;
 }
+
+.home-btn{
+display:block;width:100%;padding:12px;margin-bottom:20px;
+background:var(--accent);border:none;color:white;border-radius:10px;
+cursor:pointer;transition:.3s;font-weight:600;
+}
+.home-btn:hover{
+background:var(--accent-dark);transform:translateY(-2px);
+}
+
 .nav-btn{
 display:block;width:100%;padding:12px;margin-bottom:12px;
 background:#1f1f1f;border:none;color:white;border-radius:10px;
@@ -116,15 +126,24 @@ transition:all .5s ease;
 opacity:1;transform:translateX(0);position:relative;
 }
 
-/* Intro + Parallax */
-.intro{display:flex;flex-wrap:wrap;gap:50px;align-items:center;}
+/* Intro Layout - Text Left, Photo Right */
+.intro{
+display:flex;gap:50px;align-items:flex-start;
+}
+.intro-text{
+flex:1;
+}
+.intro-text p{
+line-height:1.8;color:#555;
+}
 .headshot-wrapper{
-perspective:1000px;
+perspective:1000px;flex-shrink:0;
 }
 .headshot{
-width:280px;border-radius:24px;
+width:280px;height:380px;border-radius:24px;
 box-shadow:0 20px 50px rgba(0,0,0,.25);
 transition:transform .2s ease;
+object-fit:cover;
 }
 
 /* Cards */
@@ -143,10 +162,40 @@ display:inline-block;padding:14px 30px;
 background:var(--accent);color:white;
 border-radius:12px;text-decoration:none;
 font-weight:600;transition:.3s;
+cursor:pointer;border:none;
 }
 .resume-btn:hover{
 background:var(--accent-dark);
 transform:translateY(-4px);
+}
+
+/* Resume Preview Modal */
+.modal{
+display:none;position:fixed;top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,.7);z-index:1000;
+align-items:center;justify-content:center;
+}
+.modal.active{display:flex;}
+.modal-content{
+background:white;padding:30px;border-radius:20px;
+max-width:800px;width:90%;max-height:80vh;
+overflow-y:auto;position:relative;
+}
+.modal-close{
+position:absolute;top:20px;right:20px;
+background:var(--accent);color:white;
+border:none;width:40px;height:40px;
+border-radius:50%;cursor:pointer;font-size:24px;
+transition:.3s;
+}
+.modal-close:hover{
+background:var(--accent-dark);transform:scale(1.1);
+}
+.resume-preview{
+background:#f5f5f5;padding:40px;
+border-radius:12px;min-height:600px;
+line-height:1.6;color:#333;
 }
 
 /* Waveform Background */
@@ -174,6 +223,11 @@ from{transform:translateX(0);}
 to{transform:translateX(-50%);}
 }
 
+/* SoundCloud Embed */
+#audio-embed{
+margin:20px 0;
+}
+
 /* Media */
 .youtube-container{
 position:relative;padding-bottom:56.25%;
@@ -195,12 +249,18 @@ max-width:600px;
 from{opacity:0;}to{opacity:1;}
 }
 
+h1{
+color:var(--primary);margin-bottom:20px;
+}
+
 @media(max-width:900px){
 #portfolio{flex-direction:column;}
 #sidebar{width:100%;position:static;height:auto;display:flex;overflow-x:auto;}
 #main{padding:30px;}
 .section{position:relative;}
 #home h1{font-size:48px;}
+.intro{flex-direction:column;}
+.headshot{width:100%;height:auto;}
 }
 </style>
 </head>
@@ -212,10 +272,11 @@ from{opacity:0;}to{opacity:1;}
 <p>Multimedia Professional</p>
 <div class="tagline">
 <div class="tagline-text">
-<div>🎙️ Broadcast Specialist</div>
-<div>🎬 Video Producer</div>
+<div>🎬 Video Production</div>
 <div>🎧 Audio Engineer</div>
-<div>📹 Live Event Producer</div>
+<div>📹 Live Event Production</div>
+<div>📺 Live Broadcast</div>
+<div>🎬 Video Production</div>
 </div>
 </div>
 <div class="menu-grid">
@@ -229,6 +290,7 @@ from{opacity:0;}to{opacity:1;}
 
 <div id="portfolio">
 <div id="sidebar">
+<button class="home-btn" onclick="goHome()">← Home</button>
 <button class="nav-btn active" onclick="switchPage('intro',this)">Intro</button>
 <button class="nav-btn" onclick="switchPage('work',this)">Work</button>
 <button class="nav-btn" onclick="switchPage('onair',this)">On Air</button>
@@ -240,9 +302,10 @@ from{opacity:0;}to{opacity:1;}
 
 <section id="intro" class="section active">
 <div class="intro">
-<div>
+<div class="intro-text">
 <h1>About Me</h1>
-<p id="bio-text">Digital Media professional with a background in broadcast, live production, post-production, and social media, supported by formal training in Broadcast and Cinematic Arts and hands-on experience across audio, video, and live event environments. I've worked on everything from studio-based educational content to large-scale live events, and I enjoy being involved throughout the full production process, from setup and capture to post-production and delivery. I bring a detail-oriented approach to my work, with a strong focus on technical accuracy, organized workflows, and creating media that's both polished and purposeful.
+<p id="bio-text">I'm a Digital Media professional with a background in broadcast, live production, post-production, and social media, supported by formal training in Broadcast and Cinematic Arts and hands-on experience across audio, video, and live event environments. I've worked on everything from studio-based educational content to large-scale live events, and I enjoy being involved throughout the full production process, from setup and capture to post-production and delivery. I bring a detail-oriented approach to my work, with a strong focus on technical accuracy, organized workflows, and creating media that's both polished and purposeful.
+
 Beyond technical skills, I'm known as a calm, reliable collaborator who helps keep productions running smoothly under pressure. I lead through clear communication, adaptability, and a strong sense of responsibility to both the team and the project. Whether working with editors, engineers, stage crews, or on-air talent, I prioritize efficiency, safety, and collaboration, and I'm driven by a genuine passion for multimedia production and continuous growth in the field.</p>
 </div>
 <div class="headshot-wrapper">
@@ -254,14 +317,15 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
 <section id="work" class="section">
 <h1>Work & Resume</h1>
 <div class="card">
-<a id="resume-link" href="" target="_blank" class="resume-btn">Download Resume</a>
+<button onclick="openResumePreview()" class="resume-btn">📄 Preview Resume</button>
+<a id="resume-link" href="" target="_blank" class="resume-btn" style="margin-left:10px;">⬇️ Download Resume</a>
 </div>
 </section>
 
 <section id="onair" class="section wave-container">
 <h1>On Air</h1>
 <div class="wave"></div>
-<audio id="audio-player" controls style="width:100%;margin-top:20px;border-radius:12px;"></audio>
+<div id="audio-embed"></div>
 </section>
 
 <section id="onscreen" class="section">
@@ -281,36 +345,52 @@ Beyond technical skills, I'm known as a calm, reliable collaborator who helps ke
 </div>
 </div>
 
+<!-- Resume Preview Modal -->
+<div id="resumeModal" class="modal">
+<div class="modal-content">
+<button class="modal-close" onclick="closeResumePreview()">×</button>
+<h2>Resume Preview</h2>
+<div class="resume-preview">
+<p><strong>Loading resume preview...</strong></p>
+<p>Click the download button below to view the full resume.</p>
+<a id="modal-resume-link" href="" target="_blank" class="resume-btn" style="display:inline-block;margin-top:20px;">⬇️ Download Full Resume</a>
+</div>
+</div>
+</div>
+
 <script>
-// ASSET CONFIGURATION - Change these paths to your files
+// ASSET CONFIGURATION
 const ASSETS = {
   photo: './photo.jpg',
-  audio: './audio.mp3',
   resume: './resume.pdf',
   videoId: 'JKwiYQ-5cCU',
-  bio: "Detail-oriented multimedia professional experienced in broadcast operations, live production, audio engineering, and post-production editing."
+  soundcloudEmbed: '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2272721219&color=%23eb945d&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/elizabeth-youmans-50453169" title="Elizabeth Youmans" target="_blank" style="color: #cccccc; text-decoration: none;">Elizabeth Youmans</a> · <a href="https://soundcloud.com/elizabeth-youmans-50453169/short-on-air-demo" title="short on air demo" target="_blank" style="color: #cccccc; text-decoration: none;">short on air demo</a></div>'
 };
 
 // Load assets on page load
 window.addEventListener('load', () => {
-  // Load photo
   document.getElementById('headshot').src = ASSETS.photo;
-  
-  // Load audio
-  const audioPlayer = document.getElementById('audio-player');
-  const audioSource = document.createElement('source');
-  audioSource.src = ASSETS.audio;
-  audioSource.type = 'audio/mpeg';
-  audioPlayer.appendChild(audioSource);
-  
-  // Load resume link
   document.getElementById('resume-link').href = ASSETS.resume;
-  
-  // Load YouTube video
+  document.getElementById('modal-resume-link').href = ASSETS.resume;
   document.getElementById('youtube-player').src = `https://www.youtube.com/embed/${ASSETS.videoId}`;
-  
-  // Load bio
-  document.getElementById('bio-text').textContent = ASSETS.bio;
+  document.getElementById('audio-embed').innerHTML = ASSETS.soundcloudEmbed;
+});
+
+// Resume Preview Functions
+function openResumePreview(){
+  document.getElementById('resumeModal').classList.add('active');
+}
+
+function closeResumePreview(){
+  document.getElementById('resumeModal').classList.remove('active');
+}
+
+// Close modal when clicking outside
+document.addEventListener('click', function(e){
+  const modal = document.getElementById('resumeModal');
+  if(e.target === modal){
+    closeResumePreview();
+  }
 });
 
 // Navigation functions
@@ -325,6 +405,13 @@ function switchPage(id,btn){
   document.getElementById(id).classList.add("active");
   document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));
   if(btn)btn.classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+// Go Home function
+function goHome(){
+  document.getElementById("portfolio").classList.remove("active");
+  document.getElementById("home").style.display="flex";
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
