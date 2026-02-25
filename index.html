@@ -1,267 +1,289 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Liz Youmans | Multimedia Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
 
 <style>
 :root{
---primary:#5B7DBF;
---accent:#F28C4C;
---accent-dark:#B06A8C;
---light:#f8f9fc;
---panel:#0e0e0e;
+  --primary:#5B7DBF;
+  --accent:#F28C4C;
+  --accent-dark:#B06A8C;
+  --panel:#0e0e0e;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-font-family:'Inter',sans-serif;
-background:linear-gradient(135deg,var(--primary),#3e57a3);
-min-height:100vh;
-overflow-x:hidden;
-cursor:url('microphone-cursor.png'), auto;
-color:white;
+  font-family:'Inter',sans-serif;
+  background:linear-gradient(135deg,var(--primary),#3e57a3);
+  min-height:100vh;
+  overflow-x:hidden;
+  cursor:url('microphone-cursor.png'), auto;
+  color:white;
 }
 
 /* Floating Background */
 body::before, body::after{
-content:"";
-position:fixed;
-width:600px;height:600px;
-border-radius:50%;
-filter:blur(120px);
-opacity:.25;
-z-index:-4;
-animation:float 20s infinite ease-in-out alternate;
+  content:"";
+  position:fixed;
+  width:600px;height:600px;
+  border-radius:50%;
+  filter:blur(120px);
+  opacity:.25;
+  z-index:-4;
+  animation:float 20s infinite ease-in-out alternate;
 }
 body::before{background:#F28C4C;top:-150px;left:-150px;}
 body::after{background:#B06A8C;bottom:-150px;right:-150px;animation-delay:5s;}
 
 @keyframes float{
-from{transform:translate(0,0);}
-to{transform:translate(60px,40px);}
+  from{transform:translate(0,0);}
+  to{transform:translate(60px,40px);}
 }
 
-/* DVD Motion Overlay */
+/* DVD Overlay */
 .dvd-overlay{
-position:fixed;inset:0;
-background:
-radial-gradient(circle at 30% 40%, rgba(255,255,255,0.06), transparent 40%),
-radial-gradient(circle at 70% 60%, rgba(255,255,255,0.05), transparent 40%);
-animation:dvdDrift 30s linear infinite alternate;
-pointer-events:none;
-z-index:-3;
+  position:fixed;inset:0;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(255,255,255,0.06), transparent 40%),
+    radial-gradient(circle at 70% 60%, rgba(255,255,255,0.05), transparent 40%);
+  animation:dvdDrift 30s linear infinite alternate;
+  pointer-events:none;
+  z-index:-3;
 }
 @keyframes dvdDrift{
-0%{background-position:0 0,0 0;}
-100%{background-position:200px 150px,-200px -150px;}
+  0%{background-position:0 0,0 0;}
+  100%{background-position:200px 150px,-200px -150px;}
 }
 
 /* Scanlines */
 .scanlines{
-position:fixed;
-inset:0;
-background:repeating-linear-gradient(
-to bottom,
-rgba(255,255,255,0.03) 0px,
-rgba(255,255,255,0.03) 1px,
-transparent 1px,
-transparent 3px
-);
-pointer-events:none;
-z-index:-2;
+  position:fixed;
+  inset:0;
+  background:repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.03) 0px,
+    rgba(255,255,255,0.03) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events:none;
+  z-index:-2;
 }
 
 /* VHS Distortion */
 .vhs{
-position:fixed;
-inset:0;
-pointer-events:none;
-opacity:0;
-background:linear-gradient(rgba(255,255,255,0.05),rgba(0,0,0,0.05));
-z-index:9999;
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:0;
+  background:linear-gradient(rgba(255,255,255,0.05),rgba(0,0,0,0.05));
+  z-index:9999;
 }
 .vhs.active{animation:vhsFlash .4s ease;}
 @keyframes vhsFlash{
-0%{opacity:0;}
-30%{opacity:.8;transform:translateY(5px);}
-60%{opacity:.4;transform:translateY(-5px);}
-100%{opacity:0;}
+  0%{opacity:0;}
+  30%{opacity:.8;transform:translateY(5px);}
+  60%{opacity:.4;transform:translateY(-5px);}
+  100%{opacity:0;}
 }
 
 /* HOME */
 #home{
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-min-height:100vh;
-text-align:center;
-padding:40px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  text-align:center;
+  padding:40px;
 }
 
 .dvd-menu-container{
-background:rgba(0,0,0,0.4);
-padding:60px 80px;
-border-radius:20px;
-backdrop-filter:blur(10px);
-border:3px solid rgba(242,140,76,0.5);
+  background:rgba(0,0,0,0.4);
+  padding:60px 80px;
+  border-radius:20px;
+  backdrop-filter:blur(10px);
+  border:3px solid rgba(242,140,76,0.5);
 }
 
 #home h1{font-size:64px;letter-spacing:3px;}
 
 .menu-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:20px;
-margin-top:40px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+  margin-top:40px;
 }
 
 .menu-btn{
-background:linear-gradient(135deg,var(--accent),#ff9d5c);
-border:3px solid rgba(255,255,255,0.4);
-padding:20px;border-radius:12px;
-font-weight:700;cursor:pointer;
-transition:.3s;
+  background:linear-gradient(135deg,var(--accent),#ff9d5c);
+  border:3px solid rgba(255,255,255,0.4);
+  padding:20px;border-radius:12px;
+  font-weight:700;cursor:pointer;
+  transition:.3s;
 }
-.menu-btn:hover,
-.auto-highlight{
-transform:scale(1.08);
-background:linear-gradient(135deg,#B06A8C,#d85a6a);
-box-shadow:0 0 20px rgba(242,140,76,.8);
+.menu-btn:hover{
+  transform:scale(1.08);
+  background:linear-gradient(135deg,#B06A8C,#d85a6a);
+  box-shadow:0 0 20px rgba(242,140,76,.8);
 }
 
-/* Home Contact Buttons */
+/* Cute Home Contact Buttons */
 .home-contact{
-margin-top:40px;
-display:flex;
-gap:20px;
+  margin-top:28px;
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
 }
-.home-contact a{
-padding:12px 24px;
-background:var(--accent);
-border-radius:12px;
-text-decoration:none;
-color:white;
-font-weight:600;
-transition:.3s;
+.contact-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 16px;
+  border-radius:999px;
+  text-decoration:none;
+  color:white;
+  font-weight:800;
+  letter-spacing:.3px;
+  background:rgba(0,0,0,0.35);
+  border:2px solid rgba(255,255,255,0.25);
+  backdrop-filter:blur(8px);
+  transition:.25s;
 }
-.home-contact a:hover{background:var(--accent-dark);}
+.contact-btn .icon{
+  width:28px;height:28px;border-radius:10px;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--accent),#ff9d5c);
+  border:1px solid rgba(255,255,255,0.25);
+  box-shadow:0 10px 24px rgba(0,0,0,0.28);
+  font-size:14px;
+}
+.contact-btn:hover{
+  transform:translateY(-2px) scale(1.03);
+  background:linear-gradient(135deg,rgba(176,106,140,0.55),rgba(216,90,106,0.45));
+  border-color:rgba(242,140,76,0.6);
+  box-shadow:0 0 18px rgba(242,140,76,.35);
+}
 
 /* PORTFOLIO */
 #portfolio{display:none;min-height:100vh;background:#111;}
 #portfolio.active{display:flex;}
 
 #sidebar{
-width:240px;background:#000;
-padding:30px 20px;
-display:flex;
-flex-direction:column;
+  width:240px;background:#000;
+  padding:30px 20px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
 }
 
 .nav-btn, .home-btn{
-display:block;width:100%;
-padding:12px;margin-bottom:12px;
-background:#1f1f1f;border:none;
-color:white;border-radius:10px;
-cursor:pointer;transition:.3s;
-text-align:left;
+  display:block;width:100%;
+  padding:12px;margin-bottom:12px;
+  background:#1f1f1f;border:none;
+  color:white;border-radius:10px;
+  cursor:pointer;transition:.3s;
+  text-align:left;
 }
 .nav-btn:hover,.nav-btn.active,
 .home-btn:hover{background:var(--accent);}
-
-.sidebar-contact{
-margin-top:auto;
-display:flex;
-flex-direction:column;
-gap:10px;
-}
-.sidebar-contact a{
-text-decoration:none;
-color:white;
-background:#1f1f1f;
-padding:10px;
-border-radius:8px;
-transition:.3s;
-}
-.sidebar-contact a:hover{background:var(--accent-dark);}
 
 #main{flex:1;padding:60px;}
 .section{display:none;}
 .section.active{display:block;}
 
-/* Intro Layout */
+/* Intro */
 .intro-container{
-display:flex;
-gap:50px;
-align-items:flex-start;
-flex-wrap:wrap;
-margin-top:30px;
+  display:flex;
+  gap:50px;
+  flex-wrap:wrap;
+  margin-top:30px;
 }
-
 .intro-text{
-flex:1;
-min-width:280px;
-line-height:1.8;
-font-size:16px;
-color:#ddd;
+  flex:1;
+  min-width:280px;
+  line-height:1.8;
+  font-size:16px;
+  color:#ddd;
 }
-
 .headshot{
-width:280px;
-border-radius:24px;
-box-shadow:0 20px 50px rgba(0,0,0,.5);
-transition:transform .2s ease;
+  width:280px;
+  border-radius:24px;
+  box-shadow:0 20px 50px rgba(0,0,0,.5);
+  transition:transform .2s ease;
 }
 
-/* Resume */
+/* Resume button */
+#resume h1{margin-bottom:50px;}
 .resume-btn{
-padding:14px 30px;
-background:var(--accent);
-border-radius:12px;
-text-decoration:none;
-color:white;
-font-weight:600;
+  display:inline-block;
+  margin-top:40px;
+  padding:16px 40px;
+  background:var(--accent);
+  border-radius:14px;
+  text-decoration:none;
+  color:white;
+  font-weight:700;
+  font-size:18px;
+  transition:.3s;
+}
+.resume-btn:hover{
+  background:linear-gradient(135deg,#B06A8C,#d85a6a);
+  transform:scale(1.08);
+  box-shadow:0 0 20px rgba(242,140,76,.8);
 }
 
-/* Broadcast Panel */
+/* Sidebar Bottom Links */
+#sidebar-bottom{
+  margin-top:auto;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  font-size:14px;
+  text-align:left;
+}
+#sidebar-bottom a{color:var(--accent);text-decoration:none;}
+#sidebar-bottom a:hover{text-decoration:underline;}
+
+/* Panels */
 .broadcast-panel{
-background:var(--panel);
-padding:40px;
-border-radius:20px;
-box-shadow:0 0 40px rgba(0,0,0,.7);
-border:2px solid #333;
+  background:var(--panel);
+  padding:40px;
+  border-radius:20px;
+  box-shadow:0 0 40px rgba(0,0,0,.7);
+  border:2px solid #333;
 }
 .panel-header{
-display:flex;
-justify-content:space-between;
-margin-bottom:20px;
-font-weight:700;
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:20px;
+  font-weight:700;
 }
 .live-indicator{
-color:red;
-animation:blink 1s infinite;
+  color:red;
+  animation:blink 1s infinite;
 }
 @keyframes blink{50%{opacity:.2;}}
 
-/* CRT */
 .crt{
-background:black;
-padding:20px;
-border-radius:20px;
-box-shadow:0 0 60px rgba(0,0,0,.9);
-position:relative;
+  background:black;
+  padding:20px;
+  border-radius:20px;
+  box-shadow:0 0 60px rgba(0,0,0,.9);
+  position:relative;
 }
 .crt::after{
-content:"";
-position:absolute;
-inset:0;
-background:radial-gradient(circle at center, transparent 60%, rgba(0,0,0,.6));
-pointer-events:none;
-border-radius:20px;
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at center, transparent 60%, rgba(0,0,0,.6));
+  pointer-events:none;
+  border-radius:20px;
 }
 </style>
 </head>
@@ -272,161 +294,207 @@ border-radius:20px;
 <div class="scanlines"></div>
 <div class="vhs" id="vhs"></div>
 
+<!-- HOME -->
 <div id="home">
-<div class="dvd-menu-container">
-<h1>LIZ YOUMANS</h1>
-<p>MULTIMEDIA PORTFOLIO</p>
+  <div class="dvd-menu-container">
+    <h1>LIZ YOUMANS</h1>
+    <p>MULTIMEDIA PORTFOLIO</p>
 
-<div class="menu-grid">
-<button class="menu-btn" onclick="openPage('intro')">▶ Intro</button>
-<button class="menu-btn" onclick="openPage('resume')">▶ Resume</button>
-<button class="menu-btn" onclick="openPage('onair')">▶ On Air</button>
-<button class="menu-btn" onclick="openPage('onscreen')">▶ On Screen</button>
+    <div class="menu-grid">
+      <button class="menu-btn" onclick="openPage('intro')">▶ Intro</button>
+      <button class="menu-btn" onclick="openPage('resume')">▶ Resume</button>
+      <button class="menu-btn" onclick="openPage('onair')">▶ On Air</button>
+      <button class="menu-btn" onclick="openPage('onscreen')">▶ On Screen</button>
+    </div>
+
+    <!-- Cute clickable buttons only (no plain text links) -->
+    <div class="home-contact" aria-label="Contact buttons">
+      <a class="contact-btn" href="mailto:Hananuiliz@gmail.com">
+        <span class="icon">✉️</span>
+        <span>Email Me</span>
+      </a>
+
+      <a class="contact-btn" href="https://www.linkedin.com/in/liz-youmans-audio" target="_blank" rel="noopener">
+        <span class="icon">in</span>
+        <span>LinkedIn</span>
+      </a>
+    </div>
+  </div>
 </div>
 
-<div class="home-contact">
-<a href="mailto:Hananuiliz@gmail.com">📧 Email</a>
-<a href="https://www.linkedin.com/in/liz-youmans-audio" target="_blank">💼 LinkedIn</a>
-</div>
-
-</div>
-</div>
-
+<!-- PORTFOLIO -->
 <div id="portfolio">
-<div id="sidebar">
+  <div id="sidebar">
+    <div>
+      <button class="home-btn" onclick="goHome()">← Home</button>
+      <button class="nav-btn active" onclick="switchPage('intro',this)">Intro</button>
+      <button class="nav-btn" onclick="switchPage('resume',this)">Resume</button>
+      <button class="nav-btn" onclick="switchPage('onair',this)">On Air</button>
+      <button class="nav-btn" onclick="switchPage('onscreen',this)">On Screen</button>
+    </div>
 
-<button class="home-btn" onclick="goHome()">← Home</button>
+    <div id="sidebar-bottom">
+      <a href="mailto:Hananuiliz@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/liz-youmans-audio" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
 
-<button class="nav-btn active" onclick="switchPage('intro',this)">Intro</button>
-<button class="nav-btn" onclick="switchPage('resume',this)">Resume</button>
-<button class="nav-btn" onclick="switchPage('onair',this)">On Air</button>
-<button class="nav-btn" onclick="switchPage('onscreen',this)">On Screen</button>
-<button class="nav-btn" onclick="switchPage('contact',this)">Contact</button>
+  <div id="main">
 
-<div class="sidebar-contact">
-<a href="mailto:Hananuiliz@gmail.com">📧 Email</a>
-<a href="https://www.linkedin.com/in/liz-youmans-audio" target="_blank">💼 LinkedIn</a>
-</div>
+    <!-- About Me -->
+    <section id="intro" class="section active">
+      <h1>About Me</h1>
+      <div class="intro-container">
+        <div class="intro-text">
+          <p>
+            I'm a Digital Media professional with a background in broadcast, live production, post-production, and social media, supported by formal training in Broadcast and Cinematic Arts and hands-on experience across audio, video, and live event environments. I've worked on everything from studio-based educational content to large-scale live events, and I enjoy being involved throughout the full production process, from setup and capture to post-production and delivery. I bring a detail-oriented approach to my work, with a strong focus on technical accuracy, organized workflows, and creating media that's both polished and purposeful.
+          </p>
+          <p style="margin-top:16px;">
+            Beyond technical skills, I'm known as a competent, reliable collaborator who helps keep productions running smoothly under pressure. I lead through clear communication, adaptability, and a strong sense of responsibility to both the team and the project. Whether working with editors, engineers, stage crews, or on-air talent, I prioritize efficiency, safety, and collaboration, and I'm driven by a genuine passion for multimedia production and continuous growth in the field.
+          </p>
+        </div>
+        <div>
+          <img id="headshot" class="headshot" alt="Headshot" />
+        </div>
+      </div>
+    </section>
 
-</div>
+    <!-- Resume -->
+    <section id="resume" class="section">
+      <h1>Resume</h1>
+      <a id="resume-link" class="resume-btn" target="_blank" rel="noopener">⬇ Download Resume</a>
+    </section>
 
-<div id="main">
+    <!-- On Air -->
+    <section id="onair" class="section">
+      <h1>On Air</h1>
+      <div class="broadcast-panel" style="margin-top:18px;">
+        <div class="panel-header">
+          <span>Broadcast Control</span>
+          <span class="live-indicator">● LIVE</span>
+        </div>
+        <div id="audio-embed"></div>
+      </div>
+    </section>
 
-<section id="intro" class="section active">
-<h1>About Me</h1>
+    <!-- On Screen -->
+    <section id="onscreen" class="section">
+      <h1>On Screen</h1>
+      <div class="crt" style="margin-top:18px;">
+        <div id="video-embed"></div>
+      </div>
+    </section>
 
-<div class="intro-container">
-
-<div class="intro-text">
-<p>
-I'm a Digital Media professional with a background in broadcast, live production, post-production, and social media, supported by formal training in Broadcast and Cinematic Arts and hands-on experience across audio, video, and live event environments. I've worked on everything from studio-based educational content to large-scale live events, and I enjoy being involved throughout the full production process, from setup and capture to post-production and delivery. I bring a detail-oriented approach to my work, with a strong focus on technical accuracy, organized workflows, and creating media that's both polished and purposeful.
-</p>
-
-<br>
-
-<p>
-Beyond technical skills, I'm known as a calm, reliable collaborator who helps keep productions running smoothly under pressure. I lead through clear communication, adaptability, and a strong sense of responsibility to both the team and the project. Whether working with editors, engineers, stage crews, or on-air talent, I prioritize efficiency, safety, and collaboration, and I'm driven by a genuine passion for multimedia production and continuous growth in the field.
-</p>
-</div>
-
-<div>
-<img id="headshot" class="headshot">
-</div>
-
-</div>
-</section>
-
-<section id="resume" class="section">
-<h1>Resume</h1>
-<a id="resume-link" class="resume-btn" target="_blank">⬇ Download Resume</a>
-</section>
-
-<section id="onair" class="section">
-<h1>On Air</h1>
-<div class="broadcast-panel">
-<div class="panel-header">
-<span>Broadcast Control</span>
-<span class="live-indicator">● LIVE</span>
-</div>
-<div id="audio-embed"></div>
-</div>
-</section>
-
-<section id="onscreen" class="section">
-<h1>On Screen</h1>
-<div class="crt">
-<iframe id="youtube-player" width="100%" height="500" allowfullscreen></iframe>
-</div>
-</section>
-
-<section id="contact" class="section">
-<h1>Contact</h1>
-<p>Email: <a href="mailto:Hananuiliz@gmail.com">Hananuiliz@gmail.com</a></p>
-<p>LinkedIn: <a href="https://www.linkedin.com/in/liz-youmans-audio" target="_blank">View Profile</a></p>
-</section>
-
-</div>
+  </div>
 </div>
 
 <script>
-const ASSETS={
-photo:'./photo.jpg',
-resume:'./resume.pdf',
-videoId:'JKwiYQ-5cCU',
-soundcloudEmbed:`<iframe width="100%" height="166" scrolling="no" frameborder="no"
-src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2272721219"></iframe>`
+const ASSETS = {
+  photo: './photo.jpg',
+  resume: './resume.pdf',
+  videoId: 'JKwiYQ-5cCU',
+  soundcloudEmbed: `<iframe width="100%" height="166" frameborder="no"
+    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2272721219"></iframe>`
 };
 
-window.onload=()=>{
-document.getElementById('headshot').src=ASSETS.photo;
-document.getElementById('resume-link').href=ASSETS.resume;
-document.getElementById('youtube-player').src=`https://www.youtube.com/embed/${ASSETS.videoId}`;
-document.getElementById('audio-embed').innerHTML=ASSETS.soundcloudEmbed;
+let currentSectionId = "intro";
+
+/* Mount / stop media */
+function mountAudio(){
+  const container = document.getElementById("audio-embed");
+  if (!container) return;
+  if (container.querySelector("iframe")) return;
+  container.innerHTML = ASSETS.soundcloudEmbed;
+}
+
+function mountVideo(){
+  const container = document.getElementById("video-embed");
+  if (!container) return;
+  if (container.querySelector("iframe")) return;
+  container.innerHTML =
+    `<iframe width="100%" height="500"
+      src="https://www.youtube.com/embed/${ASSETS.videoId}?autoplay=1&rel=0"
+      allow="autoplay; encrypted-media; picture-in-picture"
+      allowfullscreen></iframe>`;
+}
+
+function stopAllMedia(){
+  const a = document.getElementById("audio-embed");
+  const v = document.getElementById("video-embed");
+  if (a) a.innerHTML = "";
+  if (v) v.innerHTML = "";
+}
+
+/* Init */
+window.onload = () => {
+  const headshot = document.getElementById('headshot');
+  if (headshot) headshot.src = ASSETS.photo;
+
+  const resumeLink = document.getElementById('resume-link');
+  if (resumeLink) resumeLink.href = ASSETS.resume;
 };
 
+/* Navigation */
 function openPage(id){
-document.getElementById("home").style.display="none";
-document.getElementById("portfolio").classList.add("active");
-switchPage(id,document.querySelector(".nav-btn"));
+  document.getElementById("home").style.display = "none";
+  document.getElementById("portfolio").classList.add("active");
+
+  // Pick the matching nav button so the active highlight is correct
+  const matchingBtn = Array.from(document.querySelectorAll(".nav-btn"))
+    .find(b => b.textContent.trim().toLowerCase().replace(/\s+/g,'') === id.toLowerCase());
+  switchPage(id, matchingBtn || document.querySelector(".nav-btn"));
 }
 
 function goHome(){
-document.getElementById("portfolio").classList.remove("active");
-document.getElementById("home").style.display="flex";
+  stopAllMedia();
+  document.getElementById("portfolio").classList.remove("active");
+  document.getElementById("home").style.display = "flex";
 }
 
-function switchPage(id,btn){
-document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
-document.getElementById(id).classList.add("active");
-document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));
-if(btn)btn.classList.add("active");
+function switchPage(id, btn){
+  if (currentSectionId !== id) stopAllMedia();
 
-const vhs=document.getElementById("vhs");
-vhs.classList.add("active");
-setTimeout(()=>vhs.classList.remove("active"),400);
+  if (id === "onair") mountAudio();
+  if (id === "onscreen") mountVideo();
+
+  document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+  const next = document.getElementById(id);
+  if (next) next.classList.add("active");
+
+  document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+  if (btn) btn.classList.add("active");
+
+  const vhs = document.getElementById("vhs");
+  vhs.classList.add("active");
+  setTimeout(() => vhs.classList.remove("active"), 400);
+
+  currentSectionId = id;
 }
 
-document.addEventListener("mousemove",e=>{
-const headshot=document.getElementById("headshot");
-if(!headshot)return;
-const x=(window.innerWidth/2-e.clientX)/40;
-const y=(window.innerHeight/2-e.clientY)/40;
-headshot.style.transform=`rotateY(${x}deg) rotateX(${y}deg)`;
+/* Button audio */
+const hoverSound = new Audio("menu-hover.mp3");
+const clickSound = new Audio("menu-click.mp3");
+
+function safePlay(audio){
+  try{
+    audio.currentTime = 0;
+    const p = audio.play();
+    if (p && typeof p.catch === "function") p.catch(()=>{});
+  }catch(e){}
+}
+
+document.querySelectorAll(".menu-btn, .resume-btn, .nav-btn, .home-btn, .contact-btn").forEach(btn=>{
+  btn.addEventListener("mouseenter", ()=> safePlay(hoverSound));
+  btn.addEventListener("click", ()=> safePlay(clickSound));
 });
 
-let autoIndex=0;
-const buttons=document.querySelectorAll(".menu-btn");
-setInterval(()=>{
-buttons.forEach(b=>b.classList.remove("auto-highlight"));
-buttons[autoIndex].classList.add("auto-highlight");
-autoIndex=(autoIndex+1)%buttons.length;
-},3000);
-
-const hoverSound=new Audio("menu-hover.mp3");
-const clickSound=new Audio("menu-click.mp3");
-document.querySelectorAll(".menu-btn").forEach(btn=>{
-btn.addEventListener("mouseenter",()=>hoverSound.play());
-btn.addEventListener("click",()=>clickSound.play());
+/* Parallax */
+document.addEventListener("mousemove", e=>{
+  const headshot = document.getElementById("headshot");
+  if(!headshot) return;
+  const x=(window.innerWidth/2-e.clientX)/40;
+  const y=(window.innerHeight/2-e.clientY)/40;
+  headshot.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
 });
 </script>
 
