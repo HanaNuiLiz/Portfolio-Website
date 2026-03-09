@@ -471,6 +471,12 @@ body::after{background:#B06A8C;bottom:-150px;right:-150px;animation-delay:5s;}
   border:2px solid #333;
 }
 
+.onscreen-panel{
+  margin-top:18px;
+  max-width:900px;
+  width:100%;
+}
+
 .panel-header{
   display:flex;
   justify-content:space-between;
@@ -488,18 +494,18 @@ body::after{background:#B06A8C;bottom:-150px;right:-150px;animation-delay:5s;}
 }
 
 .video-shell{
-  position:relative;
-  z-index:1;
+  width:100%;
+  max-width:100%;
+  overflow:hidden;
 }
 
 .video-shell iframe{
   display:block;
   width:100%;
-  min-height:500px;
+  aspect-ratio:16 / 9;
+  height:auto;
   border:none;
   border-radius:12px;
-  position:relative;
-  z-index:2;
   background:#000;
 }
 
@@ -643,7 +649,6 @@ body::after{background:#B06A8C;bottom:-150px;right:-150px;animation-delay:5s;}
   .dvd-menu-container{padding:40px 24px;}
   #home h1{font-size:42px;}
   .menu-grid{grid-template-columns:1fr;}
-  .video-shell iframe{min-height:280px;}
   .bts-hero{grid-template-columns:1fr;}
   .bts-hero-photo{width:150px;height:150px;}
 }
@@ -811,7 +816,7 @@ body::after{background:#B06A8C;bottom:-150px;right:-150px;animation-delay:5s;}
     <section id="onscreen" class="section">
       <h1>On Screen</h1>
 
-      <div class="broadcast-panel" style="margin-top:18px;">
+      <div class="broadcast-panel onscreen-panel">
         <div class="video-shell">
           <div id="video-embed"></div>
         </div>
@@ -920,9 +925,8 @@ function mountVideo(){
 
   container.innerHTML = `
     <iframe
-      width="100%"
-      height="500"
       src="https://www.youtube.com/embed/${ASSETS.videoId}?rel=0"
+      title="Embedded video"
       allow="encrypted-media; picture-in-picture"
       allowfullscreen>
     </iframe>
