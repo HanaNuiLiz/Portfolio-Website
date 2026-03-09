@@ -462,7 +462,7 @@ body::after{background:#B06A8C;bottom:-150px;right:-150px;animation-delay:5s;}
   left:100%;
 }
 
-/* On air panel */
+/* On air / On screen panels */
 .broadcast-panel{
   background:var(--panel);
   padding:40px;
@@ -487,53 +487,6 @@ body::after{background:#B06A8C;bottom:-150px;right:-150px;animation-delay:5s;}
   50%{opacity:.2;}
 }
 
-/* CRT screen */
-.crt{
-  background:black;
-  padding:20px;
-  border-radius:20px;
-  box-shadow:0 0 60px rgba(0,0,0,.9);
-  position:relative;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,0.08);
-}
-
-.crt::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    repeating-linear-gradient(
-      to bottom,
-      rgba(255,255,255,0.03) 0px,
-      rgba(255,255,255,0.03) 1px,
-      transparent 1px,
-      transparent 4px
-    );
-  mix-blend-mode:screen;
-  pointer-events:none;
-  z-index:3;
-  animation:crtFlicker 0.18s infinite alternate;
-}
-
-.crt::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(circle at center, transparent 58%, rgba(0,0,0,.58)),
-    linear-gradient(rgba(255,255,255,0.04), rgba(0,0,0,0.08));
-  pointer-events:none;
-  border-radius:20px;
-  z-index:4;
-}
-
-@keyframes crtFlicker{
-  0%{opacity:.72;}
-  50%{opacity:.9;}
-  100%{opacity:.78;}
-}
-
 .video-shell{
   position:relative;
   z-index:1;
@@ -548,48 +501,6 @@ body::after{background:#B06A8C;bottom:-150px;right:-150px;animation-delay:5s;}
   position:relative;
   z-index:2;
   background:#000;
-}
-
-.play-pulse{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  width:92px;
-  height:92px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  pointer-events:none;
-  z-index:5;
-  background:rgba(242,140,76,0.18);
-  border:2px solid rgba(255,255,255,0.42);
-  box-shadow:0 0 30px rgba(242,140,76,.35);
-  animation:playPulse 2s ease-in-out infinite;
-  transition:opacity .3s ease;
-}
-
-.play-pulse span{
-  font-size:34px;
-  margin-left:4px;
-  color:white;
-  text-shadow:0 0 10px rgba(0,0,0,.4);
-}
-
-@keyframes playPulse{
-  0%{
-    transform:translate(-50%,-50%) scale(1);
-    box-shadow:0 0 0 0 rgba(242,140,76,.45);
-  }
-  70%{
-    transform:translate(-50%,-50%) scale(1.08);
-    box-shadow:0 0 0 22px rgba(242,140,76,0);
-  }
-  100%{
-    transform:translate(-50%,-50%) scale(1);
-    box-shadow:0 0 0 0 rgba(242,140,76,0);
-  }
 }
 
 .timecode-bar{
@@ -733,7 +644,6 @@ body::after{background:#B06A8C;bottom:-150px;right:-150px;animation-delay:5s;}
   #home h1{font-size:42px;}
   .menu-grid{grid-template-columns:1fr;}
   .video-shell iframe{min-height:280px;}
-  .play-pulse{width:74px;height:74px;}
   .bts-hero{grid-template-columns:1fr;}
   .bts-hero-photo{width:150px;height:150px;}
 }
@@ -901,15 +811,14 @@ body::after{background:#B06A8C;bottom:-150px;right:-150px;animation-delay:5s;}
     <section id="onscreen" class="section">
       <h1>On Screen</h1>
 
-      <div class="crt" style="margin-top:18px;">
+      <div class="broadcast-panel" style="margin-top:18px;">
         <div class="video-shell">
-          <div class="play-pulse" id="play-pulse"><span>▶</span></div>
           <div id="video-embed"></div>
         </div>
 
         <div class="timecode-bar" aria-label="Scrolling timecode display">
           <div class="timecode-scroll">
-            00:00:03:12 • REC • TAPE A • 00:00:07:21 • CH1/CH2 • 00:00:11:08 • PLAYBACK • 00:00:15:19 • LIVE FEED • 00:00:19:04 • SOURCE 01 • 00:00:23:17 • PROGRAM OUT • 00:00:27:05 • MONITOR A • 00:00:31:11 • REC • TAPE A • 00:00:03:12 • REC • TAPE A • 00:00:07:21 • CH1/CH2 • 00:00:11:08 • PLAYBACK • 00:00:15:19 • LIVE FEED • 00:00:19:04 • SOURCE 01 • 00:00:23:17 • PROGRAM OUT • 00:00:27:05 • MONITOR A • 00:00:31:11 • REC • TAPE A •
+            00:00:01:54 • REC • TAPE A • 00:00:10:09 • CH1/CH2 • 00:00:11:08 • PLAYBACK • 00:00:15:19 • LIZ YOUMANS • 00:00:19:04 • SOURCE 01 • 00:00:23:17 • PROGRAM OUT • 00:00:27:05 • MONITOR A • 00:00:31:11 • REC • TAPE A • 00:00:01:54 • REC • TAPE A • 00:00:10:09 • CH1/CH2 • 00:00:11:08 • PLAYBACK • 00:00:15:19 • LIZ YOUMANS • 00:00:19:04 • SOURCE 01 • 00:00:23:17 • PROGRAM OUT • 00:00:27:05 • MONITOR A • 00:00:31:11 • REC • TAPE A •
           </div>
         </div>
       </div>
@@ -1018,24 +927,14 @@ function mountVideo(){
       allowfullscreen>
     </iframe>
   `;
-
-  const pulse = document.getElementById("play-pulse");
-  if (pulse) {
-    pulse.style.opacity = "1";
-    setTimeout(() => {
-      pulse.style.opacity = "0";
-    }, 2200);
-  }
 }
 
 function stopAllMedia(){
   const audioContainer = document.getElementById("audio-embed");
   const videoContainer = document.getElementById("video-embed");
-  const pulse = document.getElementById("play-pulse");
 
   if (audioContainer) audioContainer.innerHTML = "";
   if (videoContainer) videoContainer.innerHTML = "";
-  if (pulse) pulse.style.opacity = "1";
 }
 
 window.addEventListener("load", () => {
